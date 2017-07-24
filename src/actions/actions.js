@@ -42,20 +42,23 @@ export const parseChat = (videoID) => (dispatch, getState) => {
     }).then(jsons => {
         const library = {}
 
-        //for every 30 second chunk
-        jsons.map(json => {
-        //create key based on first timestamp
-          library[json.data[0].attributes.timestamp] = { posts : [] };
-          let currentChunk = library[json.data[0].attributes.timestamp];
+        jsons.forEach(json => {
+          const tracked = [];
 
           json.data.forEach(post => {
-            currentChunk.posts.push({
+            post.attributes.message.includes(getState().searchTerm) &&
+            tracked.push({
               timestamp : post.attributes.timestamp,
               message : post.attributes.message,
               videoOffset : post.attributes["video-offset"]
             });
           })
+
+          if(tracked.length > 0){
+            library[json.data[0].attributes.timestamp] = { posts : tracked };
+          }
+
         });
-        console.log(library.sort())
+        console.log(library);
     });
 }

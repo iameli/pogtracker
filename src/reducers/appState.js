@@ -2,9 +2,10 @@ import * as actions from '../actions/actions';
 
 const initialState = {
   isParsingChat: false,
-  videoID: 159832455,
+  videoID: 160891561,
   pogs: [],
-  bacon: true
+  bacon: true,
+  searchTerm: "PogChamp"
 };
 
 //doc 160891561
