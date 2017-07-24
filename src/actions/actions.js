@@ -1,4 +1,5 @@
-export const PARSE_CHAT = 'PARSE CHAT';
+export const PARSE_CHAT = 'PARSE_CHAT';
+export const UPDATE_POGS = 'UPDATE_POGS';
 
 export const parseChat = (videoID) => (dispatch, getState) => {
   let startTime, endTime, currentTime;
@@ -11,12 +12,11 @@ export const parseChat = (videoID) => (dispatch, getState) => {
   return fetch(request)
     .then(res => res.json())
     .then(data => {
-        console.log(data);
         startTime = ((new Date(data.recorded_at)).getTime()) / 1000;
         endTime = startTime + data.length;
         currentTime = startTime;
         const promises = [];
-
+        
         while(currentTime <= endTime){
           let request = new Request('https://cors-anywhere.herokuapp.com/https://rechat.twitch.tv/rechat-messages?&start='+currentTime+"&video_id=v"+videoID, {
             headers: new Headers({
@@ -33,32 +33,40 @@ export const parseChat = (videoID) => (dispatch, getState) => {
         return Promise.all(promises);
     }).then(promises => Promise.all(promises.map(promise => promise.json())))
       .then(jsons => {
-        const library = {};
-        const sortedLibrary = {};
-        const pogsPerChunk = [];
+        const library = [];
 
-        jsons.forEach(json => {
+        jsons.forEach(chunk => {
           const tracked = [];
 
-          json.data.forEach(post => {
-            post.attributes.message.includes(getState().searchTerm) &&
-            tracked.push({
-              timestamp : post.attributes.timestamp,
-              message : post.attributes.message,
-              videoOffset : post.attributes["video-offset"]
-            });
-          })
+          chunk.data.forEach(post => {
+            if(post.attributes.message.includes(getState().searchTerm)){
+              tracked.push({
+                timestamp : post.attributes.timestamp,
+                offset : post.attributes["video-offset"],
+                message : post.attributes.message
+              })
+            }
+          });
 
           if(tracked.length > 0){
-            library[json.data[0].attributes["video-offset"]] = { posts : tracked };
+            library.push({
+              timestamp: Math.floor(chunk.data[0].attributes["video-offset"] / 1000),
+              count: tracked.length
+            });
           }
-
         });
 
-        Object.keys(library).sort().forEach(key => {
-          sortedLibrary[key] = library[key];
+        library.sort((a, b) => {
+          return b.count - a.count;
         });
 
-        
+        dispatch(updatePogs(library.slice(0, 5).map(obj => obj.timestamp)));
     });
+}
+
+function updatePogs(pogs){
+  return {
+    type: UPDATE_POGS,
+    pogs
+  }
 }

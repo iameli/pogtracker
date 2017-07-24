@@ -1,27 +1,30 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { parseChat }  from './actions/actions';
+import { parseChat, jumpToTime }  from './actions/actions';
+import styled from 'styled-components';
+import TwitchPlayer from './components/TwitchPlayer';
 import './App.css';
 
-
-// VID: 160891561
-// start epoch: 1500484578
-// apiUrl = 'https://rechat.twitch.tv/rechat-messages?
-// https://rechat.twitch.tv/rechat-messages?start=TIMESTAMP&video_id=VOD_ID'
+const Buttons = styled.div`
+  display: flex;
+`;
 
 class App extends Component {
   render() {
     return (
       <div className="App">
-        <h1>HOT LOADING MOFO</h1>
+        <h1>POGTRACKER</h1>
+        <TwitchPlayer pogs={this.props.pogs} channel={ this.props.channel } video={"v" + this.props.videoID}/>
         <button onClick={() => this.props.dispatch(parseChat(this.props.videoID))}>CHECK ME</button>
       </div>
     );
   }
 }
 
-const mapState = ({ videoID }) => ({
-  videoID
+const mapState = ({ videoID, channel, pogs }) => ({
+  channel,
+  videoID,
+  pogs
 });
 
 export default connect(mapState)(App);
