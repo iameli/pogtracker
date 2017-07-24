@@ -1,7 +1,5 @@
 export const PARSE_CHAT = 'PARSE CHAT';
 
-//"https://rechat.twitch.tv/rechat-messages?client_id=7vaylot4y76nvfvl5smsdl3lbeiajs&start=0&video_id=v" + videoID, init
-
 export const parseChat = (videoID) => (dispatch, getState) => {
   let startTime, endTime, currentTime;
   var request = new Request('https://api.twitch.tv/kraken/videos/' + videoID, {
@@ -11,9 +9,8 @@ export const parseChat = (videoID) => (dispatch, getState) => {
   });
 
   return fetch(request)
-    .then(res => {
-      return res.json();
-    }).then(data => {
+    .then(res => res.json())
+    .then(data => {
         console.log(data);
         startTime = ((new Date(data.recorded_at)).getTime()) / 1000;
         endTime = startTime + data.length;
@@ -34,13 +31,10 @@ export const parseChat = (videoID) => (dispatch, getState) => {
         }
 
         return Promise.all(promises);
-    }).then(promises => {
-        return Promise.all(promises.map(promise => promise.json()));
-        // return promises.map(promise => {
-        //   return promise.json();
-        // });
-    }).then(jsons => {
-        const library = {}
+    }).then(promises => Promise.all(promises.map(promise => promise.json())))
+      .then(jsons => {
+        const library = {};
+        const sortedLibrary = {};
 
         jsons.forEach(json => {
           const tracked = [];
@@ -59,6 +53,11 @@ export const parseChat = (videoID) => (dispatch, getState) => {
           }
 
         });
-        console.log(library);
+
+        Object.keys(library).sort().forEach(key => {
+          sortedLibrary[key] = library[key];
+        });
+        
+        console.log(sortedLibrary);
     });
 }
