@@ -35,6 +35,7 @@ export const parseChat = (videoID) => (dispatch, getState) => {
       .then(jsons => {
         const library = {};
         const sortedLibrary = {};
+        const pogsPerChunk = [];
 
         jsons.forEach(json => {
           const tracked = [];
@@ -49,7 +50,7 @@ export const parseChat = (videoID) => (dispatch, getState) => {
           })
 
           if(tracked.length > 0){
-            library[json.data[0].attributes.timestamp] = { posts : tracked };
+            library[json.data[0].attributes["video-offset"]] = { posts : tracked };
           }
 
         });
@@ -57,7 +58,7 @@ export const parseChat = (videoID) => (dispatch, getState) => {
         Object.keys(library).sort().forEach(key => {
           sortedLibrary[key] = library[key];
         });
+
         
-        console.log(sortedLibrary);
     });
 }

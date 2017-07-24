@@ -2,7 +2,7 @@ import * as actions from '../actions/actions';
 
 const initialState = {
   isParsingChat: false,
-  videoID: 160891561,
+  videoID: 159832455,
   pogs: [],
   bacon: true,
   searchTerm: "PogChamp"
