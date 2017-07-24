@@ -3,7 +3,9 @@ import { connect } from 'react-redux';
 import { parseChat }  from './actions/actions';
 import './App.css';
 
+
 // VID: 160891561
+// start epoch: 1500484578
 // apiUrl = 'https://rechat.twitch.tv/rechat-messages?
 // https://rechat.twitch.tv/rechat-messages?start=TIMESTAMP&video_id=VOD_ID'
 
