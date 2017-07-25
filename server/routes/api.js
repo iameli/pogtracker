@@ -1,4 +1,6 @@
 import express from 'express';
+import Tools from '../lib/tools';
+
 const router = express.Router();
 
 import mongoose from 'mongoose';
@@ -14,6 +16,7 @@ router.get('/replay/:replay_id',(req, res) => {
     err && res.send(err) 
  
     if(replay === null){
+      Tools.getStartTime(req.params.replay_id);
       const newReplay = new Replay();
       newReplay.videoID = req.params.replay_id;
       newReplay.emotes = [
