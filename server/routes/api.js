@@ -25,15 +25,15 @@ router.get('/replay/:replay_id',(req, res) => {
           name : "PogCramp",
           timings : [44, 55, 66]
         }
-      ];
-      
+      ];  
       newReplay.save((err) => {
         err && res.send(err);
 
         res.json({ message: 'Replay added! Thanks for contributing!'});
       })
     } else {
-      res.json(replay);
+      console.log(replay);
+      res.send(replay);
     }
   });
 });
