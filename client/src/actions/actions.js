@@ -1,5 +1,8 @@
 export const PARSE_CHAT = 'PARSE_CHAT';
 export const UPDATE_POGS = 'UPDATE_POGS';
+export const SEND_VIDEO_REQUEST = 'SEND_VIDEO_REQUEST';
+export const REQUEST_SENT = 'REQUEST_SENT';
+export const REQUEST_COMPLETE = 'REQUEST_COMPLETE';
 
 export const parseChat = (videoID) => (dispatch, getState) => {
   let startTime, endTime, currentTime;
@@ -62,6 +65,32 @@ export const parseChat = (videoID) => (dispatch, getState) => {
 
         dispatch(updatePogs(library.slice(0, 5).map(obj => obj.timestamp)));
     });
+}
+
+export const sendVideoRequest = (videoID) => (dispatch) => {
+  //generate request
+  dispatch(requestSent());
+  return fetch(`http://localhost:8080/api/replay/${videoID}`)
+  .then(res => res.json())
+  .then(data => {
+    console.log(data);
+    dispatch(requestCompleted());
+  })
+  .catch(e => {
+    console.log(e)
+  });
+}
+
+function requestSent(){
+  return {
+    type: REQUEST_SENT
+  }
+}
+
+function requestCompleted(){
+  return {
+    type: REQUEST_COMPLETE
+  }
 }
 
 function updatePogs(pogs){

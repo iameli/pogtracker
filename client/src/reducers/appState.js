@@ -2,11 +2,12 @@ import * as actions from '../actions/actions';
 
 const initialState = {
   isParsingChat: false,
-  videoID: "161636455",
-  channel: "beyondthesummit",
+  videoID: "456",
+  channel: "grimmmz",
   pogs: [],
   bacon: true,
-  searchTerm: "doctorReplay"
+  searchTerm: "PogChamp",
+  requesting: false
 };
 
 //doc 160891561
@@ -14,6 +15,10 @@ const initialState = {
 
 export default function appState(state=initialState, action){
   switch (action.type){
+    case actions.REQUEST_SENT:
+      return {...state, requesting: true}
+    case actions.REQUEST_COMPLETE :
+      return {...state, requesting: false}
     case actions.UPDATE_POGS:
       return {...state, pogs : action.pogs}
     default:

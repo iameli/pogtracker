@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { parseChat, jumpToTime }  from './actions/actions';
+import { parseChat, jumpToTime, sendVideoRequest }  from './actions/actions';
 import styled from 'styled-components';
 import TwitchPlayer from './components/TwitchPlayer';
 import './App.css';
@@ -16,6 +16,7 @@ class App extends Component {
         <h1>POGTRACKER</h1>
         <TwitchPlayer pogs={this.props.pogs} channel={ this.props.channel } video={"v" + this.props.videoID}/>
         <button onClick={() => this.props.dispatch(parseChat(this.props.videoID))}>CHECK ME</button>
+        <button onClick={() => this.props.dispatch(sendVideoRequest(this.props.videoID))}>Add video?</button>
       </div>
     );
   }
