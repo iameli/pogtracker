@@ -2,7 +2,7 @@ import * as actions from '../actions/actions';
 
 const initialState = {
   isParsingChat: false,
-  videoID: "161521771",
+  videoID: "159832455",
   channel: "drdisrespectlive",
   pogs: [],
   bacon: true,

@@ -6,8 +6,10 @@ const ReplaySchema = new Schema({
     type : Number,
     required : true
   },
+  mostUsed : String,
   emotes : [{
-    name : String,
+    emote : String,
+    count : Number,
     timings : [Number]
   }]
 });

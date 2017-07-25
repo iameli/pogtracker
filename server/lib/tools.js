@@ -84,7 +84,8 @@ function makeLibrary(chunks){
 
 function formatLibrary(library){
   const formattedLibrary = {
-    mostUsed : ""
+    mostUsed : "",
+    emotes : []
   };
   
   let mostUsedTracker = {
@@ -110,13 +111,11 @@ function formatLibrary(library){
       }
     } 
 
-
-    if(avg > 2){
-      formattedLibrary[emote] = {
-        count,
-        moments
-      } 
-    }
+    formattedLibrary.emotes.push({
+      emote,
+      count,
+      moments
+    });
   }
 
   formattedLibrary.mostUsed = mostUsedTracker.emote;

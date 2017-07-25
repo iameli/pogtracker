@@ -18,27 +18,20 @@ router.get('/replay/:replay_id',(req, res) => {
 
     if(replay === null){
       parseChat(req.params.replay_id)
-      .then(data => {
-        res.json(data);
-      });
-      // Tools.getStartTime(req.params.replay_id);
-      // const newReplay = new Replay();
-      // newReplay.videoID = req.params.replay_id;
-      // newReplay.emotes = [
-      //   {
-      //     name : "Krappa",
-      //     timings : [100, 200, 300]
-      //   },
-      //   {
-      //     name : "PogCramp",
-      //     timings : [44, 55, 66]
-      //   }
-      // ];  
-      // newReplay.save((err) => {
-      //   err && res.send(err);
+      .then(({mostUsed, emotes}) => {
 
-      //   res.json({ message: 'Replay added! Thanks for contributing!'});
-      // })
+        let newReplay = new Replay({
+          videoID : req.params.replay_id,
+          mostUsed,
+          emotes
+        });
+
+        newReplay.save((err, replay) => {
+          err && res.send(err);
+          res.send(replay);
+        });
+        
+      });
     } else {
       res.send(replay);
     }
