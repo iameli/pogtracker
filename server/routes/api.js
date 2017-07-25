@@ -1,5 +1,5 @@
 import express from 'express';
-import { getStartTime } from '../lib/tools';
+import { parseChat } from '../lib/tools';
 
 const router = express.Router();
 
@@ -14,16 +14,11 @@ router.use((req, res, next) => {
 router.get('/replay/:replay_id',(req, res) => {
   Replay.findOne({ videoID: req.params.replay_id }, (err, replay) => {
     err && res.send(err) 
-     console.log("database success");
-      //if replay does exist
-    if(replay === null){
-      //query twitch async
-      //return data
-      //add to database and return data to frontend
+    console.log("database success");
 
-      getStartTime(req.params.replay_id)
+    if(replay === null){
+      parseChat(req.params.replay_id)
       .then(data => {
-        console.log(data);
         res.status(200).send({startTime: data});
       });
       // Tools.getStartTime(req.params.replay_id);
