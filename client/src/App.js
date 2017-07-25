@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { parseChat, jumpToTime, sendVideoRequest }  from './actions/actions';
+import { jumpToTime, sendVideoRequest }  from './actions/actions';
 import styled from 'styled-components';
+
+import Search from './containers/Search';
 import TwitchPlayer from './components/TwitchPlayer';
 import './App.css';
 
@@ -11,21 +13,29 @@ const Buttons = styled.div`
 
 class App extends Component {
   render() {
-    return (
-      <div className="App">
-        <h1>POGTRACKER</h1>
-        <TwitchPlayer pogs={this.props.pogs} channel={ this.props.channel } video={"v" + this.props.videoID}/>
-        <button onClick={() => this.props.dispatch(parseChat(this.props.videoID))}>CHECK ME</button>
-        <button onClick={() => this.props.dispatch(sendVideoRequest(this.props.videoID))}>Add video?</button>
-      </div>
-    );
+    if(this.props.videoLoaded){
+      return (
+        <div className="App">
+          <h1>POGTRACKER</h1>
+          <TwitchPlayer pogs={this.props.pogs} channel={ this.props.channel } video={"v" + this.props.videoID}/>
+        </div>
+      );
+    }else if(this.props.requesting){
+      return <div><h1>requesting, yo</h1></div>
+    } else {
+      return(
+        <Search/>
+      )
+    }
   }
 }
 
-const mapState = ({ videoID, channel, pogs }) => ({
+const mapState = ({ videoID, channel, pogs, videoLoaded, requesting }) => ({
+  videoLoaded,
   channel,
   videoID,
-  pogs
+  pogs,
+  requesting
 });
 
 export default connect(mapState)(App);

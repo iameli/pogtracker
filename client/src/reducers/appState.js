@@ -1,6 +1,7 @@
 import * as actions from '../actions/actions';
 
 const initialState = {
+  videoLoaded: false,
   isParsingChat: false,
   videoID: "159832455",
   channel: "drdisrespectlive",
@@ -22,9 +23,7 @@ export default function appState(state=initialState, action){
     case actions.REQUEST_SENT:
       return {...state, requesting: true}
     case actions.REQUEST_COMPLETE :
-      return {...state, requesting: false}
-    case actions.UPDATE_POGS:
-      return {...state, pogs : action.pogs}
+      return {...state, requesting: false, videoLoaded: true}
     default:
       return state;
   }
