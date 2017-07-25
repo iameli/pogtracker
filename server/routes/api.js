@@ -19,7 +19,7 @@ router.get('/replay/:replay_id',(req, res) => {
     if(replay === null){
       parseChat(req.params.replay_id)
       .then(data => {
-        res.status(200).send({startTime: data});
+        res.json(data);
       });
       // Tools.getStartTime(req.params.replay_id);
       // const newReplay = new Replay();
