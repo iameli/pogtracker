@@ -1,5 +1,5 @@
 import express from 'express';
-import Tools from '../lib/tools';
+import { getStartTime } from '../lib/tools';
 
 const router = express.Router();
 
@@ -14,28 +14,37 @@ router.use((req, res, next) => {
 router.get('/replay/:replay_id',(req, res) => {
   Replay.findOne({ videoID: req.params.replay_id }, (err, replay) => {
     err && res.send(err) 
- 
+     console.log("database success");
+      //if replay does exist
     if(replay === null){
-      Tools.getStartTime(req.params.replay_id);
-      const newReplay = new Replay();
-      newReplay.videoID = req.params.replay_id;
-      newReplay.emotes = [
-        {
-          name : "Krappa",
-          timings : [100, 200, 300]
-        },
-        {
-          name : "PogCramp",
-          timings : [44, 55, 66]
-        }
-      ];  
-      newReplay.save((err) => {
-        err && res.send(err);
+      //query twitch async
+      //return data
+      //add to database and return data to frontend
 
-        res.json({ message: 'Replay added! Thanks for contributing!'});
-      })
+      getStartTime(req.params.replay_id)
+      .then(data => {
+        console.log(data);
+        res.status(200).send({startTime: data});
+      });
+      // Tools.getStartTime(req.params.replay_id);
+      // const newReplay = new Replay();
+      // newReplay.videoID = req.params.replay_id;
+      // newReplay.emotes = [
+      //   {
+      //     name : "Krappa",
+      //     timings : [100, 200, 300]
+      //   },
+      //   {
+      //     name : "PogCramp",
+      //     timings : [44, 55, 66]
+      //   }
+      // ];  
+      // newReplay.save((err) => {
+      //   err && res.send(err);
+
+      //   res.json({ message: 'Replay added! Thanks for contributing!'});
+      // })
     } else {
-      console.log(replay);
       res.send(replay);
     }
   });
