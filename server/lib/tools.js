@@ -22,15 +22,15 @@ function parseChat(videoID){
     currentTime = startTime;
     const requests = [];
 
-    const requestOptions = {
-      uri: 'https://rechat.twitch.tv/rechat-messages?&start='+ currentTime+ "&video_id=v"+ videoID,
-      headers: {
-        'Client-ID': '7vaylot4y76nvfvl5smsdl3lbeiajs'
-      },
-      json: true
-    };
-
     while(currentTime <= endTime){
+      const requestOptions = {
+        uri: 'https://rechat.twitch.tv/rechat-messages?&start='+currentTime+"&video_id=v"+videoID,
+        headers: {
+          'Client-ID': '7vaylot4y76nvfvl5smsdl3lbeiajs'
+        },
+        json: true
+      };
+
       requests.push(rp(requestOptions));
       currentTime += 30;
     }
@@ -41,12 +41,34 @@ function parseChat(videoID){
     const library = {};
 
     chatChunks.forEach(chunk => {
-      console.log(chunk);
+      const tracker = {};
+
+      chunk.data.forEach(post => {
+        const postOffsetTime = Math.floor(post.attributes["video-offset"] / 1000);
+
+        emoteNames.forEach(emoteName => {
+          if(post.attributes.message.includes(emoteName)){
+            !tracker[emoteName]
+              ?
+                tracker[emoteName] = [postOffsetTime]
+              :
+                tracker[emoteName].push(postOffsetTime)
+          }          
+        });
+      });
+      
+      console.log(tracker);
     })
   })
+
   .catch(err => {
     console.log(err);
   });
 }
 
 export { parseChat };
+
+// {
+//   Kappa : [12, 42],
+//   PogChamp : [16, 84]
+// }
