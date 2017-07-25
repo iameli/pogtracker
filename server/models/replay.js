@@ -10,7 +10,7 @@ const ReplaySchema = new Schema({
   emotes : [{
     emote : String,
     count : Number,
-    timings : [Number]
+    moments : [Number]
   }]
 });
 

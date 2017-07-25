@@ -8,7 +8,7 @@ export const sendVideoRequest = (videoID) => (dispatch) => {
   .then(res => res.json())
   .then(data => {
     console.log(data);
-    dispatch(requestCompleted());
+    dispatch(requestCompleted(data));
   })
   .catch(e => {
     console.log(e)
@@ -21,8 +21,15 @@ function requestSent(){
   }
 }
 
-function requestCompleted(){
+function requestCompleted(data){
   return {
-    type: REQUEST_COMPLETE
+    type: REQUEST_COMPLETE,
+    payload : {
+      videoID : data.videoID,
+      emotes : {
+        mostUsed : data.mostUsed,
+        emotes : data.emotes
+      }
+    }
   }
 }
