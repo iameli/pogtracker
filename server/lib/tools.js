@@ -41,24 +41,31 @@ function parseChat(videoID){
     const library = {};
 
     chatChunks.forEach(chunk => {
-      const tracker = {};
+      const emoteTracker = {};
 
       chunk.data.forEach(post => {
         const postOffsetTime = Math.floor(post.attributes["video-offset"] / 1000);
 
         emoteNames.forEach(emoteName => {
           if(post.attributes.message.includes(emoteName)){
-            !tracker[emoteName]
+            !emoteTracker[emoteName]
               ?
-                tracker[emoteName] = [postOffsetTime]
+                emoteTracker[emoteName] = [postOffsetTime]
               :
-                tracker[emoteName].push(postOffsetTime)
+                emoteTracker[emoteName].push(postOffsetTime)
           }          
         });
       });
-      
-      console.log(tracker);
+
+      for(let emote in emoteTracker){
+        !library[emote]
+          ?
+            library[emote] = [emoteTracker[emote]]
+          : 
+            library[emote].push(emoteTracker[emote])
+      }
     })
+    console.log(library);
   })
 
   .catch(err => {
