@@ -2,11 +2,11 @@ import * as actions from '../actions/actions';
 
 const initialState = {
   isParsingChat: false,
-  videoID: "160891561",
+  videoID: "161636455",
   channel: "beyondthesummit",
   pogs: [],
   bacon: true,
-  searchTerm: "PogChamp"
+  searchTerm: "doctorReplay"
 };
 
 //doc 160891561

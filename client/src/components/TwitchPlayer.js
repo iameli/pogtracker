@@ -67,9 +67,6 @@ class TwitchPlayer extends Component {
 		return (
       <div>
 			  <div id={this.state.id || ''} className="twitch-video-embed"></div>
-        <button onClick={() => this.updateTime(0)}>Start at 0</button>
-        <button onClick={() => this.updateTime(60)}>1 minute</button>
-        <button onClick={() => this.updateTime(300)}>5 minute</button>
         {this.props.pogs.map(pog => {
           return <button onClick={() => this.updateTime(pog)}>{pog}</button>
         })}
