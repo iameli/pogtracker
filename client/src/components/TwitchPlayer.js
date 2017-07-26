@@ -1,5 +1,42 @@
 import React, { Component } from 'react';
 import 'twitch-embed';
+import styled from 'styled-components';
+import { convertToTime }  from '../lib/tools';
+import TwitchPlayerTopper from '../components/TwitchPlayerTopper';
+
+
+const PlayerW = styled.div`
+	display: flex;
+	justify-content: center;
+	background-color: rgba(100, 65, 164, 0.2);
+	width: 100vw;
+	position: relative;
+	margin-left: -50vw;
+	margin-right: -50vw;
+	height: 432px;
+	margin-bottom: 20px;
+`;
+
+const ButtonW = styled.div`
+	display: flex;
+	flex-flow: column;
+	height: 432px;
+	border-left: 2px solid lightpurple;
+`;
+
+const TimeButton = styled.button`
+	flex: 1;
+	padding: 0.8em 1.5em;
+	border: none;
+	background: rgba(100, 65, 164, 1);
+	color: white;
+	font-weight: bold;
+
+	&:hover {
+		background: rgba(100, 65, 164, 0.8);
+	}
+
+`;
 
 class TwitchPlayer extends Component {
   constructor(props){
@@ -52,8 +89,8 @@ class TwitchPlayer extends Component {
 	setPlayer() {
     if (!this.player) {
 			const options = {};
-      options.width = 1280;
-      options.height = 720;
+      options.width = 768;
+      options.height = 432;
 			options.video = this.props.video;
 
 			if (typeof window !== 'undefined' && window.Twitch) {
@@ -67,29 +104,16 @@ class TwitchPlayer extends Component {
     this.player.seek(time);
   }
 
-	convertToTime(sec){
-    sec = Number(sec);		
-    let hours = Math.floor(sec / 3600);
-    let minutes = Math.floor(sec % 3600 / 60);
-    let seconds = Math.floor(sec % 3600 % 60);
-
-		const times = [hours, minutes, seconds].map(time => time < 10 ? "0" + time : time);
-
-    const hourShow = times[0] > 0 ? times[0] + ":" : "00:";
-    const minuteShow = times[1] > 0 ? times[1] + ":" : "00:";
-    const secondShow = times[2] > 0 ? times[2] : "00";
-
-    return hourShow + minuteShow + secondShow; 
-	}
-
   render() {
 		return (
-      <div>
-			  <div id={this.state.id || ''} className="twitch-video-embed"></div>
-        {this.generatePogs(this.props.emotes).map(moment => {
-          return <button key={moment} onClick={() => this.updateTime(moment)}>{this.convertToTime(moment)}</button>
-        })}
-      </div>
+      <PlayerW>
+					<div id={this.state.id || ''} className="twitch-video-embed"></div>
+					<ButtonW>
+						{this.generatePogs(this.props.emotes).map(moment => {
+							return <TimeButton key={moment} onClick={() => this.updateTime(moment)}>{convertToTime(moment)}</TimeButton>
+						})}
+					</ButtonW>
+      </PlayerW>
 		);
 	}
 }

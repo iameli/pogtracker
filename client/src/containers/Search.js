@@ -36,9 +36,14 @@ class Search extends Component {
     console.log(this.state)
   }
 
+  handleSubmit(e){
+    e.preventDefault();
+    this.props.dispatch(sendVideoRequest(this.state.input))
+  }
+
   render() {
     return (
-      <SearchWrapper onSubmit={() => this.props.dispatch(sendVideoRequest(this.state.input))}>
+      <SearchWrapper onSubmit={(e) => this.handleSubmit(e)}>
         <SearchBox style={false} value={this.state.input} onKeyUp={(e) => this.handleChange(e)} placeholder="What replay should I analyze for you?"/>
         <Submit type="submit" value="Submit"/>
       </SearchWrapper>

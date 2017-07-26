@@ -14,6 +14,7 @@ function parseChat(videoID){
 
   return rp(initialOptions)
   .then(data => {
+    console.log(data);
     console.log("Initial request successful.");
 
     startTime = ((new Date(data.recorded_at)).getTime()) / 1000;

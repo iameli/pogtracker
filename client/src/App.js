@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { jumpToTime, sendVideoRequest }  from './actions/actions';
 import styled from 'styled-components';
-
+import TopBar from './components/TopBar';
+import Loading from './components/Loading';
 import Search from './containers/Search';
-import EmoteButtons from './components/EmoteButtons';
-import TwitchPlayer from './components/TwitchPlayer';
+import PogTracker from './containers/PogTracker';
 import './App.css';
 
 //000 black
@@ -13,35 +13,35 @@ import './App.css';
 //813772 purple
 //B82601 orangered
 
+const AppW = styled.div`
+  margin: 0 auto;
+  width: 70%;
+`;
+
 const Buttons = styled.div`
   display: flex;
 `;
 
 class App extends Component {
   render() {
-    if(this.props.videoLoaded){
-      return (
-        <div className="App">
-          <h1>POGTRACKER</h1>
-          <TwitchPlayer emote={this.props.emote} emotes={this.props.emotes} channel={ this.props.channel } video={"v" + this.props.videoID}/>
-          <EmoteButtons />
-        </div>
-      );
-    }else if(this.props.requesting){
-      return <div><h1>requesting, yo</h1></div>
-    } else {
-      return(
-        <Search/>
-      )
-    }
+    return(
+      <AppW>
+        <TopBar channel={this.props.channel ? this.props.channel : undefined}/>
+        {
+          this.props.requesting 
+          ? <Loading />
+          : 
+            this.props.videoLoaded 
+            ? <PogTracker/> 
+            : <Search/>
+        }
+      </AppW>
+    )
   }
 }
 
-const mapState = ({ videoID, emotes, emote, videoLoaded, requesting }) => ({
+const mapState = ({ videoLoaded, requesting, channel }) => ({
   videoLoaded,
-  videoID,
-  emotes,
-  emote,
   requesting
 });
 

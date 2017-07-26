@@ -8,7 +8,6 @@ export const sendVideoRequest = (videoID) => (dispatch) => {
   return fetch(`http://localhost:8080/api/replay/${videoID}`)
   .then(res => res.json())
   .then(data => {
-    console.log(data);
     dispatch(requestCompleted(data));
   })
   .catch(e => {
