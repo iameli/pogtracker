@@ -11,11 +11,14 @@ router.use((req, res, next) => {
   next();
 });
 
+//callback hell you shitheel
 router.get('/replay/:replay_id',(req, res) => {
   Replay.findOne({ videoID: req.params.replay_id }, (err, replay) => {
     err && res.send(err) 
     console.log("Database successfully queried...");
-
+    //send back 202, stating that request for replay analysis has been accepted
+    //future requests for the same replay with detect an empty document that exists
+    //user will be prompted in both cases to recheck in a few moments
     if(replay === null){
       
       console.log("...and I don't have that one. Working on it.")

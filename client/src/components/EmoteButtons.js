@@ -8,7 +8,6 @@ import { data } from '../lib/data';
 const ButtonWrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
-  width: 70%;
 `;
 
 const Button = styled.button`

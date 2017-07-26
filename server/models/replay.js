@@ -30,7 +30,4 @@ const ReplaySchema = new Schema({
   }
 });
 
-const Replay = mongoose.model('Replay', ReplaySchema);
-
-export default Replay;
-
+export default mongoose.model('Replay', ReplaySchema);

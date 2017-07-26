@@ -7,20 +7,20 @@ import { convertToTime }  from '../lib/tools';
 const PlayerW = styled.div`
 	display: flex;
 	justify-content: center;
-	background-color: rgba(100, 65, 164, 0.2);
+	background-color: rgba(100, 65, 164, 1);
 	width: 100vw;
 	position: relative;
 	margin-left: -50vw;
 	margin-right: -50vw;
 	height: 432px;
 	margin-bottom: 20px;
+	background-image: url("https://www.transparenttextures.com/patterns/shattered.png");
 `;
 
 const ButtonW = styled.div`
 	display: flex;
 	flex-flow: column;
 	height: 432px;
-	border-left: 2px solid lightpurple;
 `;
 
 const TimeButton = styled.button`
@@ -30,6 +30,7 @@ const TimeButton = styled.button`
 	background: rgba(100, 65, 164, 1);
 	color: white;
 	font-weight: bold;
+	border-right: 2px solid silver;
 
 	&:hover {
 		background: rgba(100, 65, 164, 0.8);
@@ -82,7 +83,6 @@ class TwitchPlayer extends Component {
 	}
 
 	setPlayer() {
-		console.log(this.props.videoID)
     if (!this.player) {
 			const options = {};
       options.width = 768;

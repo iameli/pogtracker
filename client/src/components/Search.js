@@ -36,7 +36,6 @@ class Search extends Component {
 
   handleChange(e){
     this.setState({input : e.target.value});
-    console.log(this.state)
   }
 
   handleSubmit(e){

@@ -1,6 +1,9 @@
 import emoteNames from './data';
 import rp from 'request-promise';
 
+const TWITCH_INTERVAL = 30;
+const REPLAY_OFFSET = 20;
+
 function parseChat(videoID){
   let startTime, endTime, currentTime;
   let parsedData = {};
@@ -33,7 +36,8 @@ function parseChat(videoID){
       };
 
       requests.push(rp(requestOptions));
-      currentTime += 30;
+
+      currentTime += TWITCH_INTERVAL;
     }
 
     parsedData.channelData = {
@@ -98,17 +102,25 @@ function makeLibrary(chunks){
     const emoteTracker = {};
 
     chunk.data.forEach(post => {
-      const postOffsetTime = Math.floor(post.attributes["video-offset"] / 1000) - 20;
+      const postOffsetTime = Math.floor(post.attributes["video-offset"] / 1000) - REPLAY_OFFSET;
 
       emoteNames.forEach(emoteName => {
         if(post.attributes.message.includes(emoteName)){
-          !emoteTracker[emoteName] ? emoteTracker[emoteName] = [postOffsetTime] : emoteTracker[emoteName].push(postOffsetTime)
+          !emoteTracker[emoteName] 
+            ? 
+              emoteTracker[emoteName] = [postOffsetTime] 
+            : 
+              emoteTracker[emoteName].push(postOffsetTime)
         }          
       });
     });
 
     for(let emote in emoteTracker){
-      !library[emote] ? library[emote] = [emoteTracker[emote]] : library[emote].push(emoteTracker[emote])
+      !library[emote] 
+        ? 
+          library[emote] = [emoteTracker[emote]] 
+        : 
+          library[emote].push(emoteTracker[emote])
     }
   });
 
@@ -157,11 +169,3 @@ function formatLibrary(library){
 }
 
 export { parseChat };
-
-// {
-//   mostUsed : "WutFace",
-//   Kappa : {
-//     activity : 437,
-//     moments : [1237, 8976, 120]
-//   }
-// }

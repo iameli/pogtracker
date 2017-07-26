@@ -29,7 +29,7 @@ const Logo = styled.h3`
   margin: 0;
 
   & > img {
-    margin-right: 4px;
+    padding-right: 7px;
   }
 `;
 const Tagline = styled.p`
