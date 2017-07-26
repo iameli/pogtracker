@@ -4,6 +4,7 @@ import styled from 'styled-components';
 
 import EmoteButtons from '../components/EmoteButtons';
 import TwitchPlayer from '../components/TwitchPlayer';
+import TwitchPlayerTopper from '../components/TwitchPlayerTopper';
 
 const PogTrackerW = styled.div`
   display: flex;

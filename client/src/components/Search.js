@@ -7,13 +7,16 @@ import styled from 'styled-components';
 
 const SearchWrapper = styled.form`
   display: flex;
-  position: relative;
-  margin: 0 auto;
-  width: 100%;
+  align-items: center;
+
+  & > i {
+    color: rgba(100, 65, 164, 1);
+  }
 `;
 
 const SearchBox = styled(NumericInput)`
   text-align: center;
+  margin-right: 10px;
 `;
 
 const Submit = styled.input`
@@ -45,7 +48,7 @@ class Search extends Component {
     return (
       <SearchWrapper onSubmit={(e) => this.handleSubmit(e)}>
         <SearchBox style={false} value={this.state.input} onKeyUp={(e) => this.handleChange(e)} placeholder="What replay should I analyze for you?"/>
-        <Submit type="submit" value="Submit"/>
+        <i onClick={(e) => this.handleSubmit(e)} className="fa fa-search fa-lg" aria-hidden="true"></i>
       </SearchWrapper>
     );
   }

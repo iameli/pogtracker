@@ -4,7 +4,7 @@ import { jumpToTime, sendVideoRequest }  from './actions/actions';
 import styled from 'styled-components';
 import TopBar from './components/TopBar';
 import Loading from './components/Loading';
-import Search from './containers/Search';
+import Search from './components/Search';
 import PogTracker from './containers/PogTracker';
 import './App.css';
 
@@ -33,7 +33,7 @@ class App extends Component {
           : 
             this.props.videoLoaded 
             ? <PogTracker/> 
-            : <Search/>
+            : undefined
         }
       </AppW>
     )

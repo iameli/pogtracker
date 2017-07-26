@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
+import Search from './Search';
 import styled from 'styled-components';
 
 const BarW = styled.div`
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
+  align-items: center;
 `;
 
 const Logo = styled.h3`
@@ -22,6 +24,7 @@ class TopBar extends Component {
     return (
       <BarW>
         <Logo>P<img src="https://static-cdn.jtvnw.net/emoticons/v1/88/1.0" alt="PogChamp!"/>GTRACKER</Logo>
+        <Search />
       </BarW>
     );
   }

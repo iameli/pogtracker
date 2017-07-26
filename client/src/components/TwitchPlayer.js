@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import 'twitch-embed';
 import styled from 'styled-components';
 import { convertToTime }  from '../lib/tools';
-import TwitchPlayerTopper from '../components/TwitchPlayerTopper';
-
 
 const PlayerW = styled.div`
 	display: flex;
