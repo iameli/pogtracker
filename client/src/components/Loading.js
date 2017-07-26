@@ -34,7 +34,7 @@ class Loading extends Component {
     return (
       <LoadingW>
         <ReactLoading type={"cylon"} color={"rgba(100, 65, 164, 1)"} delay={500}/>
-        <Notification>Processing your replay</Notification>
+        <Notification>Loading your replay</Notification>
       </LoadingW>
     );
   }

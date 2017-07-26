@@ -53,11 +53,12 @@ class TwitchPlayer extends Component {
 
 	componentDidMount() {
 		this.setPlayer();
-    this.updateTime(0);
+    this.updateTime(this.props.emotes.find(emote => emote.name === "PogChamp").moments[0]);
 	}
 
 	componentDidUpdate() {
 		this.setPlayer();
+		this.updateTime(this.props.emotes.find(emote => emote.name === this.props.activeEmote).moments[0]);
 	}
 
 	componentWillReceiveProps(nextProps) {

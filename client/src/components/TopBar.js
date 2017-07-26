@@ -6,7 +6,7 @@ const BarW = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin: 30px 0;
+  margin: 20px 0 30px 0;
 `;
 
 const LogoW = styled.div`
