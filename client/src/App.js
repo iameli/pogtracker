@@ -4,6 +4,7 @@ import { jumpToTime, sendVideoRequest }  from './actions/actions';
 import styled from 'styled-components';
 
 import Search from './containers/Search';
+import EmoteButtons from './components/EmoteButtons';
 import TwitchPlayer from './components/TwitchPlayer';
 import './App.css';
 
@@ -22,7 +23,8 @@ class App extends Component {
       return (
         <div className="App">
           <h1>POGTRACKER</h1>
-          <TwitchPlayer emotes={this.props.emotes} channel={ this.props.channel } video={"v" + this.props.videoID}/>
+          <TwitchPlayer emote={this.props.emote} emotes={this.props.emotes} channel={ this.props.channel } video={"v" + this.props.videoID}/>
+          <EmoteButtons />
         </div>
       );
     }else if(this.props.requesting){
@@ -35,10 +37,11 @@ class App extends Component {
   }
 }
 
-const mapState = ({ videoID, emotes, videoLoaded, requesting }) => ({
+const mapState = ({ videoID, emotes, emote, videoLoaded, requesting }) => ({
   videoLoaded,
   videoID,
   emotes,
+  emote,
   requesting
 });
 

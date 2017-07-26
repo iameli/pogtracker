@@ -1,7 +1,7 @@
 //https://static-cdn.jtvnw.net/emoticons/v1/${emotes["emoteName"].id}/3.0
 //1.0, 2.0 and 3.0 reference image sizes
 
-const emotes = {
+export const data = {
   JKanStyle: {
     id: 15,
     code: 'JKanStyle',

@@ -5,6 +5,7 @@ const initialState = {
   isParsingChat: false,
   videoID: "",
   channel: "drdisrespectlive",
+  emote: "PogChamp",
   emotes: {},
   requesting: false
 };
@@ -20,6 +21,8 @@ const initialState = {
 
 export default function appState(state=initialState, action){
   switch (action.type){
+    case actions.UPDATE_EMOTE:
+      return {...state, emote : action.emote}
     case actions.REQUEST_SENT:
       return {...state, requesting: true}
     case actions.REQUEST_COMPLETE :

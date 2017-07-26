@@ -112,7 +112,7 @@ function formatLibrary(library){
     } 
 
     formattedLibrary.emotes.push({
-      emote,
+      name: emote,
       count,
       moments
     });

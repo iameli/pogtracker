@@ -8,7 +8,8 @@ const ReplaySchema = new Schema({
   },
   mostUsed : String,
   emotes : [{
-    emote : String,
+    name : String,
+    imgID : Number,
     count : Number,
     moments : [Number]
   }]

@@ -29,7 +29,7 @@ class TwitchPlayer extends Component {
 	}
 
 	generatePogs(emotes){
-		return emotes.emotes.find(emote => emote.emote === "WutFace").moments;
+		return emotes.emotes.find(emote => emote.name === this.props.emote).moments;
 	}
 
   setId() {
@@ -68,27 +68,16 @@ class TwitchPlayer extends Component {
   }
 
 	convertToTime(sec){
-    sec = Number(sec);
-		
+    sec = Number(sec);		
     let hours = Math.floor(sec / 3600);
-		if(hours < 10){
-			hours = "0" + hours
-		}
-
     let minutes = Math.floor(sec % 3600 / 60);
-		if(minutes < 10){
-			minutes = "0" + minutes
-		}
-
     let seconds = Math.floor(sec % 3600 % 60);
-		if(seconds < 10){
-			seconds = "0" + seconds
-		}
 
+		const times = [hours, minutes, seconds].map(time => time < 10 ? "0" + time : time);
 
-    const hourShow = hours > 0 ? hours + ":" : "00:";
-    const minuteShow = minutes > 0 ? minutes + ":" : "00:";
-    const secondShow = seconds > 0 ? seconds : "00";
+    const hourShow = times[0] > 0 ? times[0] + ":" : "00:";
+    const minuteShow = times[1] > 0 ? times[1] + ":" : "00:";
+    const secondShow = times[2] > 0 ? times[2] : "00";
 
     return hourShow + minuteShow + secondShow; 
 	}
@@ -98,7 +87,7 @@ class TwitchPlayer extends Component {
       <div>
 			  <div id={this.state.id || ''} className="twitch-video-embed"></div>
         {this.generatePogs(this.props.emotes).map(moment => {
-          return <button onClick={() => this.updateTime(moment)}>{this.convertToTime(moment)}</button>
+          return <button key={moment} onClick={() => this.updateTime(moment)}>{this.convertToTime(moment)}</button>
         })}
       </div>
 		);
