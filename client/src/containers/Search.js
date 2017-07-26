@@ -27,7 +27,7 @@ class Search extends Component {
     super(props);
 
     this.state = {
-      input : null
+      input : "161763204"
     }
   }
 

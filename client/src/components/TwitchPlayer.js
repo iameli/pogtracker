@@ -67,12 +67,38 @@ class TwitchPlayer extends Component {
     this.player.seek(time);
   }
 
+	convertToTime(sec){
+    sec = Number(sec);
+		
+    let hours = Math.floor(sec / 3600);
+		if(hours < 10){
+			hours = "0" + hours
+		}
+
+    let minutes = Math.floor(sec % 3600 / 60);
+		if(minutes < 10){
+			minutes = "0" + minutes
+		}
+
+    let seconds = Math.floor(sec % 3600 % 60);
+		if(seconds < 10){
+			seconds = "0" + seconds
+		}
+
+
+    const hourShow = hours > 0 ? hours + ":" : "00:";
+    const minuteShow = minutes > 0 ? minutes + ":" : "00:";
+    const secondShow = seconds > 0 ? seconds : "00";
+
+    return hourShow + minuteShow + secondShow; 
+	}
+
   render() {
 		return (
       <div>
 			  <div id={this.state.id || ''} className="twitch-video-embed"></div>
         {this.generatePogs(this.props.emotes).map(moment => {
-          return <button onClick={() => this.updateTime(moment)}>{moment}</button>
+          return <button onClick={() => this.updateTime(moment)}>{this.convertToTime(moment)}</button>
         })}
       </div>
 		);
