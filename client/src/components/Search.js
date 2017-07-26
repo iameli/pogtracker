@@ -47,7 +47,12 @@ class Search extends Component {
   render() {
     return (
       <SearchWrapper onSubmit={(e) => this.handleSubmit(e)}>
-        <SearchBox style={false} value={this.state.input} onKeyUp={(e) => this.handleChange(e)} placeholder="What replay should I analyze for you?"/>
+        <SearchBox 
+          style={false} 
+          value={this.state.input} 
+          onKeyUp={(e) => this.handleChange(e)} 
+          placeholder="What replay should I analyze for you?"
+        />
         <i onClick={(e) => this.handleSubmit(e)} className="fa fa-search fa-lg" aria-hidden="true"></i>
       </SearchWrapper>
     );
