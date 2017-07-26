@@ -6,7 +6,7 @@ const StatsW = styled.div`
   display: flex;
   width: 100%;
   font-family: 'Open Sans', serif;
-  margin-bottom: 10px;
+  margin-bottom: 5px;
   justify-content: flex-end;
 `;
 

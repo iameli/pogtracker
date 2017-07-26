@@ -16,7 +16,7 @@ const LogoW = styled.div`
   & > p {
     font-family: 'Open Sans', sans-serif;
     color: rgba(100, 65, 164, 1);
-    font-size: 0.9em;
+    font-size: 0.8em;
     margin: -3px 0 0 0;
   }
 `;
