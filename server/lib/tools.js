@@ -14,8 +14,7 @@ function parseChat(videoID){
 
   return rp(initialOptions)
   .then(data => {
-    console.log("in tool");
-    console.log(data);
+    console.log("Initial request successful.");
 
     startTime = ((new Date(data.recorded_at)).getTime()) / 1000;
     endTime = startTime + data.length;
@@ -38,6 +37,7 @@ function parseChat(videoID){
     return Promise.all(requests);
   })
   .then(chatChunks => {
+    console.log("Whew! Promise.all successful!")
     const library = makeLibrary(chatChunks);
     const formattedLibrary = formatLibrary(library);
 
@@ -65,7 +65,7 @@ function makeLibrary(chunks){
     const emoteTracker = {};
 
     chunk.data.forEach(post => {
-      const postOffsetTime = Math.floor(post.attributes["video-offset"] / 1000);
+      const postOffsetTime = Math.floor(post.attributes["video-offset"] / 1000) - 20;
 
       emoteNames.forEach(emoteName => {
         if(post.attributes.message.includes(emoteName)){

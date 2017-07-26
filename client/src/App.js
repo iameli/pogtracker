@@ -17,7 +17,7 @@ class App extends Component {
       return (
         <div className="App">
           <h1>POGTRACKER</h1>
-          <TwitchPlayer pogs={this.props.pogs} channel={ this.props.channel } video={"v" + this.props.videoID}/>
+          <TwitchPlayer emotes={this.props.emotes} channel={ this.props.channel } video={"v" + this.props.videoID}/>
         </div>
       );
     }else if(this.props.requesting){
@@ -30,11 +30,10 @@ class App extends Component {
   }
 }
 
-const mapState = ({ videoID, channel, pogs, videoLoaded, requesting }) => ({
+const mapState = ({ videoID, emotes, videoLoaded, requesting }) => ({
   videoLoaded,
-  channel,
   videoID,
-  pogs,
+  emotes,
   requesting
 });
 

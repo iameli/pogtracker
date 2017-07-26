@@ -28,6 +28,10 @@ class TwitchPlayer extends Component {
 		this.setPlayer();
 	}
 
+	generatePogs(emotes){
+		return emotes.emotes.find(emote => emote.emote === "PogChamp").moments;
+	}
+
   setId() {
 		if (!this.state.id) {
 			if (this.props.channel) {
@@ -67,8 +71,8 @@ class TwitchPlayer extends Component {
 		return (
       <div>
 			  <div id={this.state.id || ''} className="twitch-video-embed"></div>
-        {this.props.pogs.map(pog => {
-          return <button onClick={() => this.updateTime(pog)}>{pog}</button>
+        {this.generatePogs(this.props.emotes).map(moment => {
+          return <button onClick={() => this.updateTime(moment)}>{moment}</button>
         })}
       </div>
 		);
