@@ -29,7 +29,7 @@ class TwitchPlayer extends Component {
 	}
 
 	generatePogs(emotes){
-		return emotes.emotes.find(emote => emote.emote === "PogChamp").moments;
+		return emotes.emotes.find(emote => emote.emote === "WutFace").moments;
 	}
 
   setId() {
