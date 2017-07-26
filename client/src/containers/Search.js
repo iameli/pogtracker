@@ -5,24 +5,18 @@ import NumericInput from 'react-numeric-input';
 
 import styled from 'styled-components';
 
-const SearchWrapper = styled.div`
+const SearchWrapper = styled.form`
   display: flex;
-  height: 75px;
   position: relative;
   margin: 0 auto;
-  width: 50%;
+  width: 100%;
 `;
 
 const SearchBox = styled(NumericInput)`
-  flex: 1;
-  width: 500px;
   text-align: center;
-  height: 100%;
 `;
 
-const Submit = styled.button`
-  width: 200px;
-  height: 100%;
+const Submit = styled.input`
   background: green;
   color: white;
   border: none;
@@ -44,9 +38,9 @@ class Search extends Component {
 
   render() {
     return (
-      <SearchWrapper>
+      <SearchWrapper onSubmit={() => this.props.dispatch(sendVideoRequest(this.state.input))}>
         <SearchBox style={false} value={this.state.input} onKeyUp={(e) => this.handleChange(e)} placeholder="What replay should I analyze for you?"/>
-        <Submit type="button" onClick={() => this.props.dispatch(sendVideoRequest(this.state.input))}>POGTRACK</Submit>
+        <Submit type="submit" value="Submit"/>
       </SearchWrapper>
     );
   }

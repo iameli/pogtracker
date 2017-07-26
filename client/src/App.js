@@ -7,6 +7,11 @@ import Search from './containers/Search';
 import TwitchPlayer from './components/TwitchPlayer';
 import './App.css';
 
+//000 black
+//062f4f dark blue
+//813772 purple
+//B82601 orangered
+
 const Buttons = styled.div`
   display: flex;
 `;
