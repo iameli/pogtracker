@@ -16,10 +16,9 @@ const Button = styled.button`
 
 class EmoteButtons extends Component {
   render() {
-    console.log(this.props.emotes)
     return (
       <ButtonWrapper>
-        {this.props.emotes.emotes.map(emote => {
+        {this.props.emotes.map(emote => {
           return(
             <Button key={emote.name} onClick={() => this.props.dispatch(updateEmote(emote.name))}>
               <img src={`https://static-cdn.jtvnw.net/emoticons/v1/${data[emote.name].id}/1.0`} alt={emote}/>
@@ -32,8 +31,8 @@ class EmoteButtons extends Component {
   }
 }
 
-const mapState = ({ emotes }) => ({
-  emotes
+const mapState = ({ loadedData }) => ({
+  emotes : loadedData.library.emotes
 });
 
 export default connect(mapState)(EmoteButtons);

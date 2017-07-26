@@ -24,13 +24,7 @@ function requestSent(){
 function requestCompleted(data){
   return {
     type: REQUEST_COMPLETE,
-    payload : {
-      videoID : data.videoID,
-      emotes : {
-        mostUsed : data.mostUsed,
-        emotes : data.emotes
-      }
-    }
+    data
   }
 }
 

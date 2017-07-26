@@ -3,10 +3,13 @@ import * as actions from '../actions/actions';
 const initialState = {
   videoLoaded: false,
   isParsingChat: false,
-  videoID: "",
-  channel: "drdisrespectlive",
-  emote: "PogChamp",
-  emotes: {},
+  loadedData : {
+    videoID: "",
+    library : {},
+    channelData : {},
+    replayData : {}
+  },
+  activeEmote: "PogChamp",
   requesting: false
 };
 
@@ -22,11 +25,21 @@ const initialState = {
 export default function appState(state=initialState, action){
   switch (action.type){
     case actions.UPDATE_EMOTE:
-      return {...state, emote : action.emote}
+      return {...state, activeEmote : action.emote}
     case actions.REQUEST_SENT:
       return {...state, requesting: true}
     case actions.REQUEST_COMPLETE :
-      return {...state, requesting: false, videoLoaded: true, videoID: action.payload.videoID, emotes: action.payload.emotes}
+      return {
+        ...state, 
+        requesting: false, 
+        videoLoaded: true,
+        loadedData: {
+          videoID: action.data.videoID,
+          library: action.data.library,
+          channelData: action.data.channelData,
+          replayData: action.data.replayData
+        }
+      }
     default:
       return state;
   }

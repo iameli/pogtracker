@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import 'twitch-embed';
 import styled from 'styled-components';
 import { convertToTime }  from '../lib/tools';
@@ -63,10 +64,6 @@ class TwitchPlayer extends Component {
 		this.setPlayer();
 	}
 
-	generatePogs(emotes){
-		return emotes.emotes.find(emote => emote.name === this.props.emote).moments;
-	}
-
   setId() {
 		if (!this.state.id) {
 			if (this.props.channel) {
@@ -75,26 +72,26 @@ class TwitchPlayer extends Component {
 					id: `twitch-${this.props.channel}`
 				});
 			}
-			if (this.props.video) {
+			if (this.props.videoID) {
 				this.channel = false;
 				this.setState({
-					id: `twitch-${this.props.video}`
+					id: `twitch-${this.props.videoID}`
 				});
 			}
 		}
 	}
 
 	setPlayer() {
+		console.log(this.props.videoID)
     if (!this.player) {
 			const options = {};
       options.width = 768;
       options.height = 432;
-			options.video = this.props.video;
+			options.video = "v" + this.props.videoID;
 
 			if (typeof window !== 'undefined' && window.Twitch) {
 				this.player = new window.Twitch.Player(this.state.id, options);
 			}
-      console.log(options)
 		}
 	}
 
@@ -107,7 +104,7 @@ class TwitchPlayer extends Component {
       <PlayerW>
 					<div id={this.state.id || ''} className="twitch-video-embed"></div>
 					<ButtonW>
-						{this.generatePogs(this.props.emotes).map(moment => {
+						{this.props.emotes.find(emote => emote.name === this.props.activeEmote).moments.map(moment => {
 							return <TimeButton key={moment} onClick={() => this.updateTime(moment)}>{convertToTime(moment)}</TimeButton>
 						})}
 					</ButtonW>
@@ -116,4 +113,10 @@ class TwitchPlayer extends Component {
 	}
 }
 
-export default TwitchPlayer;
+const mapState = ({ loadedData, activeEmote, videoID }) => ({
+	videoID : loadedData.videoID,
+	emotes : loadedData.library.emotes,
+	activeEmote
+});
+
+export default connect(mapState)(TwitchPlayer);

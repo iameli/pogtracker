@@ -3,6 +3,8 @@ import rp from 'request-promise';
 
 function parseChat(videoID){
   let startTime, endTime, currentTime;
+  let parsedData = {};
+  let formattedLibrary;
 
   const initialOptions = {
     uri: 'https://api.twitch.tv/kraken/videos/' + videoID,
@@ -14,13 +16,12 @@ function parseChat(videoID){
 
   return rp(initialOptions)
   .then(data => {
-    console.log(data);
     console.log("Initial request successful.");
 
+    const requests = [];
     startTime = ((new Date(data.recorded_at)).getTime()) / 1000;
     endTime = startTime + data.length;
     currentTime = startTime;
-    const requests = [];
 
     while(currentTime <= endTime){
       const requestOptions = {
@@ -34,15 +35,46 @@ function parseChat(videoID){
       requests.push(rp(requestOptions));
       currentTime += 30;
     }
+
+    parsedData.channelData = {
+      name : data.channel.name,
+      displayName : data.channel.display_name,
+      api : data._links.channel
+    };
+
+    parsedData.replayData = {
+      title : data.title,
+      url : data.url,
+      length : data.length,
+      recordedAt: data.recorded_at,
+      game: data.game
+    };
     
     return Promise.all(requests);
   })
   .then(chatChunks => {
     console.log("Whew! Promise.all successful!")
-    const library = makeLibrary(chatChunks);
-    const formattedLibrary = formatLibrary(library);
 
-    return formattedLibrary;
+    const channelOptions = {
+      uri: parsedData.channelData.api,
+      headers: {
+        'Client-ID': '7vaylot4y76nvfvl5smsdl3lbeiajs'
+      },
+      json: true
+    };
+    const library = makeLibrary(chatChunks);
+    formattedLibrary = formatLibrary(library);
+
+    console.log("One last call to make. Need that streamer image!")
+    return rp(channelOptions)
+  })
+  .then(channelData => {
+    console.log("Image get! Bundling it up.");
+
+    parsedData.channelData.logo = channelData.logo;
+    parsedData.library = formattedLibrary;
+
+    return parsedData;
   })
   .catch(err => {
     console.log(err);

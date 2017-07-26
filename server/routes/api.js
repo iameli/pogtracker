@@ -20,13 +20,13 @@ router.get('/replay/:replay_id',(req, res) => {
       
       console.log("...and I don't have that one. Working on it.")
       parseChat(req.params.replay_id)
-      .then(({mostUsed, emotes}) => {
-
+      .then(({replayData, channelData, library}) => {
         console.log("...almost there, chat was parsed...")
         let newReplay = new Replay({
           videoID : req.params.replay_id,
-          mostUsed,
-          emotes
+          library,
+          channelData,
+          replayData
         });
 
         newReplay.save((err, replay) => {
