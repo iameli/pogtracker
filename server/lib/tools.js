@@ -2,7 +2,7 @@ import emoteNames from './data';
 import rp from 'request-promise';
 
 const TWITCH_INTERVAL = 30;
-const REPLAY_OFFSET = 20;
+const REPLAY_OFFSET = 15;
 
 function parseChat(videoID){
   let startTime, endTime, currentTime;
