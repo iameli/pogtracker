@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import 'twitch-embed';
 import styled from 'styled-components';
 import { updateActive } from '../actions/actions';
 import { convertToTime }  from '../lib/tools';
@@ -70,20 +69,12 @@ class TwitchPlayer extends Component {
 
   setId() {
 		if (!this.state.id) {
-			if (this.props.channel) {
-				this.channel = true;
-				this.setState({
-					id: `twitch-${this.props.channel}`
-				});
-			}
-			if (this.props.videoID) {
-				this.channel = false;
-				this.setState({
-					id: `twitch-${this.props.videoID}`
-				});
-			}
+			this.setState({
+				id: `twitch-${this.props.videoID}`
+			});
 		}
 	}
+
 
 	setPlayer() {
     if (!this.player) {
@@ -92,9 +83,7 @@ class TwitchPlayer extends Component {
       options.height = 432;
 			options.video = "v" + this.props.videoID;
 
-			if (typeof window !== 'undefined' && window.Twitch) {
-				this.player = new window.Twitch.Player(this.state.id, options);
-			}
+			this.player = new window.Twitch.Player(this.state.id, options);
 		}
 
 		this.updateTime();
@@ -115,18 +104,18 @@ class TwitchPlayer extends Component {
   render() {
 		return (
       <PlayerW>
-					<div id={this.state.id || ''} className="twitch-video-embed"></div>
-					<ButtonW>
-						{this.props.emotes.find(emote => emote.name === this.props.activeEmote).moments.map((moment, index) => {
-							return (
-								<TimeButton 
-									key={moment} 
-									onClick={() => this.props.dispatch(updateActive({activeMoment: index}))}>
-									{convertToTime(moment)}
-								</TimeButton>
-							)
-						})}
-					</ButtonW>
+				<div id={this.state.id || ''} className="twitch-video-embed"></div>
+				<ButtonW>
+					{this.props.emotes.find(emote => emote.name === this.props.activeEmote).moments.map((moment, index) => {
+						return (
+							<TimeButton 
+								key={moment} 
+								onClick={() => this.props.dispatch(updateActive({activeMoment: index}))}>
+								{convertToTime(moment)}
+							</TimeButton>
+						)
+					})}
+				</ButtonW>
       </PlayerW>
 		);
 	}
