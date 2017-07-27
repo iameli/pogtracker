@@ -1,7 +1,7 @@
 export const SEND_VIDEO_REQUEST = 'SEND_VIDEO_REQUEST';
 export const REQUEST_SENT = 'REQUEST_SENT';
 export const REQUEST_COMPLETE = 'REQUEST_COMPLETE';
-export const UPDATE_EMOTE = 'UPDATE_EMOTE';
+export const UPDATE_ACTIVE = 'UPDATE_ACTIVE';
 
 export const sendVideoRequest = (videoID) => (dispatch) => {
   dispatch(requestSent());
@@ -28,9 +28,9 @@ function requestCompleted(data){
   }
 }
 
-export function updateEmote(emote){
+export function updateActive(updates){
   return {
-    type: UPDATE_EMOTE,
-    emote
+    type: UPDATE_ACTIVE,
+    updates
   }
 }

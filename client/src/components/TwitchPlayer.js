@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import 'twitch-embed';
 import styled from 'styled-components';
+import { updateActive } from '../actions/actions';
 import { convertToTime }  from '../lib/tools';
 
 const PlayerW = styled.div`
@@ -42,6 +43,7 @@ class TwitchPlayer extends Component {
   constructor(props){
     super(props);
     this.player = null;
+
     this.state = {
       id: null
     }
@@ -53,8 +55,8 @@ class TwitchPlayer extends Component {
 
 	componentDidMount() {
 		this.setPlayer();
-    this.updateTime(this.props.emotes.find(emote => emote.name === "PogChamp").moments[0]);
 	}
+ 
 
 	componentDidUpdate() {
 		this.setPlayer();
@@ -114,10 +116,12 @@ class TwitchPlayer extends Component {
 	}
 }
 
-const mapState = ({ loadedData, activeEmote, videoID }) => ({
+const mapState = ({ loadedData }, ownProps) => ({
+	query : ownProps.query ? ownProps.query : undefined,
 	videoID : loadedData.videoID,
 	emotes : loadedData.library.emotes,
-	activeEmote
+	activeEmote : loadedData.activeEmote,
+	activeMoment : loadedData.activeMoment
 });
 
 export default connect(mapState)(TwitchPlayer);

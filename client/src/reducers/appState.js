@@ -2,15 +2,15 @@ import * as actions from '../actions/actions';
 
 const initialState = {
   videoLoaded: false,
-  isParsingChat: false,
+  requesting: false,
   loadedData : {
     videoID: "",
-    library : {},
-    channelData : {},
-    replayData : {}
-  },
-  activeEmote: "PogChamp",
-  requesting: false
+    library: {},
+    channelData: {},
+    replayData: {},
+    activeEmote: "PogChamp",
+    activeMoment: 0
+  }
 };
 
 
@@ -24,8 +24,18 @@ const initialState = {
 
 export default function appState(state=initialState, action){
   switch (action.type){
-    case actions.UPDATE_EMOTE:
-      return {...state, activeEmote : action.emote}
+    case actions.UPDATE_ACTIVE:
+      const newEmote = action.updates.activeEmote;
+      const newMoment = action.updates.activeEmote;
+
+      return {
+        ...state, 
+        loadedData : {
+          ...state.loadedData,
+          activeEmote : newEmote ? newEmote : state.loadedData.activeEmote,
+          activeMoment : newMoment ? newMoment : state.loadedData.activeMoment
+        }
+      }
     case actions.REQUEST_SENT:
       return {...state, requesting: true}
     case actions.REQUEST_COMPLETE :
@@ -34,6 +44,7 @@ export default function appState(state=initialState, action){
         requesting: false, 
         videoLoaded: true,
         loadedData: {
+          ...state.loadedData,
           videoID: action.data.videoID,
           library: action.data.library,
           channelData: action.data.channelData,

@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { sendVideoRequest } from '../actions/actions';
+import { sendVideoRequest, updateActive } from '../actions/actions';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
+import qs from 'query-string'
 
 import Loading from '../components/Loading';
 import ReplayStats from '../components/ReplayStats';
@@ -19,6 +20,8 @@ class PogTracker extends Component {
 
   componentWillMount(){
     const videoID = this.props.match.params.id;
+    const query = this.props.location.search ? qs.parse(this.props.location.search) : undefined;
+    query && this.props.dispatch(updateActive({activeEmote: query.e, activeMoment: query.t}));
     this.props.dispatch(sendVideoRequest(videoID));
   }
 
@@ -33,7 +36,7 @@ class PogTracker extends Component {
               ? 
                 <PogTrackerW>
                   <ReplayStats />
-                  <TwitchPlayer />
+                  <TwitchPlayer/>
                   <EmoteButtons />
                 </PogTrackerW>
               : undefined

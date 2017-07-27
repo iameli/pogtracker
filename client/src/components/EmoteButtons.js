@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { updateEmote } from '../actions/actions';
+import { updateActive } from '../actions/actions';
 import styled from 'styled-components';
 
 import { data } from '../lib/data';
@@ -19,7 +19,7 @@ class EmoteButtons extends Component {
       <ButtonWrapper>
         {this.props.emotes.map(emote => {
           return(
-            <Button key={emote.name} onClick={() => this.props.dispatch(updateEmote(emote.name))}>
+            <Button key={emote.name} onClick={() => this.props.dispatch(updateActive({activeEmote: emote.name}))}>
               <img src={`https://static-cdn.jtvnw.net/emoticons/v1/${data[emote.name].id}/1.0`} alt={emote}/>
             </Button>
           ) 
