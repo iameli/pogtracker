@@ -20,8 +20,16 @@ class PogTracker extends Component {
 
   componentWillMount(){
     const videoID = this.props.match.params.id;
-    const query = this.props.location.search ? qs.parse(this.props.location.search) : undefined;
-    query && this.props.dispatch(updateActive({activeEmote: query.e, activeMoment: query.m}));
+    const queries = this.props.location.search ? qs.parse(this.props.location.search) : undefined;
+    const toDispatch = {};
+
+    for(let query in queries){
+      query === "e" && (toDispatch["activeEmote"] = queries[query]);
+      query === "m" && (toDispatch["activeMoment"] = queries[query]);
+    }
+    console.log(toDispatch)
+    
+    this.props.dispatch(updateActive(toDispatch));
     this.props.dispatch(sendVideoRequest(videoID));
   }
 

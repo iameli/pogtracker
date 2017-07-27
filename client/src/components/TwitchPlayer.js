@@ -65,6 +65,7 @@ class TwitchPlayer extends Component {
 	componentWillReceiveProps(nextProps) {
 		this.setId();
 		this.setPlayer();
+		this.updateTime();
 	}
 
   setId() {
@@ -95,6 +96,7 @@ class TwitchPlayer extends Component {
 				this.player = new window.Twitch.Player(this.state.id, options);
 			}
 		}
+		this.updateTime();
 	}
 
   updateTime() {
