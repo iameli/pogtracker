@@ -22,12 +22,6 @@ class PogTracker extends Component {
     this.dispatchNewRequest();
   }
 
-  componentWillReceiveProps(newProps){
-    console.log(newProps);
-    console.log(newProps.match.params.id, this.props.loadedVideoID);
-    newProps.match.params.id != this.props.loadedVideoID && this.dispatchNewRequest();
-  }
-
   getQueries(){
     const queries = this.props.location.search ? qs.parse(this.props.location.search) : undefined;
     const formattedDispatchQueries = {};
@@ -42,7 +36,13 @@ class PogTracker extends Component {
 
   dispatchNewRequest(){
     this.props.dispatch(updateActive(this.getQueries()));
-    !this.props.requesting && this.props.dispatch(sendVideoRequest(this.props.match.params.id));
+    this.props.dispatch(sendVideoRequest(this.props.match.params.id));
+  }
+
+  componentWillReceiveProps(newProps){
+    if(newProps.match.params.id != this.props.loadedVideoID && this.props.loadedVideoID){
+      window.location.reload();
+    }
   }
 
   render() {
