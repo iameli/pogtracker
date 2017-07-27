@@ -29,7 +29,6 @@ function requestCompleted(data){
 }
 
 export function updateActive(updates){
-  console.log(updates)
   return {
     type: UPDATE_ACTIVE,
     updates

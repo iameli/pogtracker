@@ -81,19 +81,12 @@ class TwitchPlayer extends Component {
 			const options = {};
       options.width = 768;
       options.height = 432;
+			options.channel = "";
+			options.collection="v3MeJWgPyBTV3g";
 			options.video = "v" + this.props.videoID;
 
 			this.player = new window.Twitch.Player(this.state.id, options);
 		}
-
-		this.updateTime();
-		
-		//delayed recall of updateTime due to the twitch embed loading
-		//previous view state. Should really only affect people refreshing
-		//but good to catch it until I replace the twitch embed with a custom solution
-		//arrow functions dont work inside of setTimeout in React? Have to set THAT to have access.
-		const that = this;
-		setTimeout(function() { that.updateTime() }, 5000 );
 	}
 
   updateTime() {

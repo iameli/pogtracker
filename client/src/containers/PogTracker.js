@@ -19,18 +19,30 @@ const PogTrackerW = styled.div`
 class PogTracker extends Component {
 
   componentWillMount(){
-    const videoID = this.props.match.params.id;
+    this.dispatchNewRequest();
+  }
+
+  componentWillReceiveProps(newProps){
+    console.log(newProps);
+    console.log(newProps.match.params.id, this.props.loadedVideoID);
+    newProps.match.params.id != this.props.loadedVideoID && this.dispatchNewRequest();
+  }
+
+  getQueries(){
     const queries = this.props.location.search ? qs.parse(this.props.location.search) : undefined;
-    const toDispatch = {};
+    const formattedDispatchQueries = {};
 
     for(let query in queries){
-      query === "e" && (toDispatch["activeEmote"] = queries[query]);
-      query === "m" && (toDispatch["activeMoment"] = queries[query]);
+      query === "e" && (formattedDispatchQueries["activeEmote"] = queries[query]);
+      query === "m" && (formattedDispatchQueries["activeMoment"] = queries[query]);
     }
-    console.log(toDispatch)
-    
-    this.props.dispatch(updateActive(toDispatch));
-    this.props.dispatch(sendVideoRequest(videoID));
+
+    return formattedDispatchQueries;
+  }
+
+  dispatchNewRequest(){
+    this.props.dispatch(updateActive(this.getQueries()));
+    !this.props.requesting && this.props.dispatch(sendVideoRequest(this.props.match.params.id));
   }
 
   render() {
@@ -54,7 +66,8 @@ class PogTracker extends Component {
   }
 }
 
-const mapState = ({ requesting, videoLoaded}) => ({
+const mapState = ({ requesting, videoLoaded, loadedData}) => ({
+  loadedVideoID : loadedData.videoID,
   requesting,
   videoLoaded
 });

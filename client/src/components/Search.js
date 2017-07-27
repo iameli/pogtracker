@@ -51,7 +51,7 @@ class Search extends Component {
           style={false} 
           value={this.state.input} 
           onKeyUp={(e) => this.handleChange(e)} 
-          placeholder="What replay should I analyze for you?"
+          placeholder="What replay, yo?"
         />
         <i onClick={(e) => this.handleSubmit(e)} className="fa fa-search fa-lg" aria-hidden="true"></i>
       </SearchWrapper>
