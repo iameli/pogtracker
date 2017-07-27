@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { sendVideoRequest } from '../actions/actions';
+import { withRouter } from 'react-router'
 import { connect } from 'react-redux';
 import NumericInput from 'react-numeric-input';
 
@@ -40,7 +41,7 @@ class Search extends Component {
 
   handleSubmit(e){
     e.preventDefault();
-    this.props.dispatch(sendVideoRequest(this.state.input))
+    this.props.history.push('/replay/' + this.state.input);
   }
 
   render() {
@@ -58,4 +59,4 @@ class Search extends Component {
   }
 }
 
-export default connect()(Search);
+export default withRouter(connect()(Search));

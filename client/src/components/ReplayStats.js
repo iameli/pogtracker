@@ -56,7 +56,7 @@ class ReplayStats extends Component {
 
 const mapState = ({ loadedData }) => {
   const { channelData, replayData } = loadedData;
-  console.log(channelData);
+
   return {
     title : replayData.title,
     displayName : channelData.displayName,

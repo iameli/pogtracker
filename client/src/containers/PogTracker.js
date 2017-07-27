@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
+import { sendVideoRequest } from '../actions/actions';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 
+import Loading from '../components/Loading';
 import ReplayStats from '../components/ReplayStats';
 import EmoteButtons from '../components/EmoteButtons';
 import TwitchPlayer from '../components/TwitchPlayer';
@@ -14,15 +16,36 @@ const PogTrackerW = styled.div`
 `;
 
 class PogTracker extends Component {
+
+  componentWillMount(){
+    const videoID = this.props.match.params.id;
+    this.props.dispatch(sendVideoRequest(videoID));
+  }
+
   render() {
     return (
-      <PogTrackerW>
-        <ReplayStats />
-        <TwitchPlayer />
-        <EmoteButtons />
-      </PogTrackerW>
+      <div>
+         {
+          this.props.requesting 
+            ? <Loading />
+            : 
+            this.props.videoLoaded 
+              ? 
+                <PogTrackerW>
+                  <ReplayStats />
+                  <TwitchPlayer />
+                  <EmoteButtons />
+                </PogTrackerW>
+              : undefined
+         }
+      </div>
     );
   }
 }
 
-export default PogTracker;
+const mapState = ({ requesting, videoLoaded}) => ({
+  requesting,
+  videoLoaded
+});
+
+export default connect(mapState)(PogTracker);

@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { jumpToTime, sendVideoRequest }  from './actions/actions';
 import styled from 'styled-components';
+import { BrowserRouter as Router, Route } from 'react-router-dom'
+
 import TopBar from './components/TopBar';
 import Loading from './components/Loading';
 import Search from './components/Search';
@@ -25,17 +27,12 @@ const Buttons = styled.div`
 class App extends Component {
   render() {
     return(
-      <AppW>
-        <TopBar channel={this.props.channel ? this.props.channel : undefined}/>
-        {
-          this.props.requesting 
-          ? <Loading />
-          : 
-            this.props.videoLoaded 
-            ? <PogTracker/> 
-            : undefined
-        }
-      </AppW>
+      <Router>
+        <AppW>
+          <TopBar channel={this.props.channel ? this.props.channel : undefined}/>
+            <Route path="/replay/:id" component={PogTracker}/>
+        </AppW>
+      </Router>
     )
   }
 }
