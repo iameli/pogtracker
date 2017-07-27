@@ -26,7 +26,7 @@ export default function appState(state=initialState, action){
   switch (action.type){
     case actions.UPDATE_ACTIVE:
       const newEmote = action.updates.activeEmote;
-      const newMoment = action.updates.activeEmote;
+      const newMoment = action.updates.activeMoment;
 
       return {
         ...state, 

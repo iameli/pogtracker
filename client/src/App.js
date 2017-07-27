@@ -10,11 +10,6 @@ import Search from './components/Search';
 import PogTracker from './containers/PogTracker';
 import './App.css';
 
-//000 black
-//062f4f dark blue
-//813772 purple
-//B82601 orangered
-
 const AppW = styled.div`
   margin: 0 auto;
   width: 70%;

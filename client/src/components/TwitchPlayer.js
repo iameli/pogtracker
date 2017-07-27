@@ -55,12 +55,11 @@ class TwitchPlayer extends Component {
 
 	componentDidMount() {
 		this.setPlayer();
+		this.updateTime();
 	}
  
-
 	componentDidUpdate() {
-		this.setPlayer();
-		this.updateTime(this.props.emotes.find(emote => emote.name === this.props.activeEmote).moments[0]);
+		this.updateTime();
 	}
 
 	componentWillReceiveProps(nextProps) {
@@ -98,7 +97,8 @@ class TwitchPlayer extends Component {
 		}
 	}
 
-  updateTime(time) {
+  updateTime() {
+		const time = this.props.emotes.find(emote => emote.name === this.props.activeEmote).moments[this.props.activeMoment];
     this.player.seek(time);
   }
 
@@ -107,8 +107,14 @@ class TwitchPlayer extends Component {
       <PlayerW>
 					<div id={this.state.id || ''} className="twitch-video-embed"></div>
 					<ButtonW>
-						{this.props.emotes.find(emote => emote.name === this.props.activeEmote).moments.map(moment => {
-							return <TimeButton key={moment} onClick={() => this.updateTime(moment)}>{convertToTime(moment)}</TimeButton>
+						{this.props.emotes.find(emote => emote.name === this.props.activeEmote).moments.map((moment, index) => {
+							return (
+								<TimeButton 
+									key={moment} 
+									onClick={() => this.props.dispatch(updateActive({activeMoment: index}))}>
+									{convertToTime(moment)}
+								</TimeButton>
+							)
 						})}
 					</ButtonW>
       </PlayerW>

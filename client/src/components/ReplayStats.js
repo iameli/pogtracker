@@ -15,7 +15,6 @@ const OwnerW = styled.div`
 `;
 
 const ShareW = styled.div`
-
 `;
 
 const ShareButton = styled.button`
