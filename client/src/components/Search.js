@@ -6,26 +6,6 @@ import NumericInput from 'react-numeric-input';
 
 import styled from 'styled-components';
 
-const SearchWrapper = styled.form`
-  display: flex;
-  align-items: center;
-
-  & > i {
-    color: rgba(100, 65, 164, 1);
-  }
-`;
-
-const SearchBox = styled(NumericInput)`
-  text-align: center;
-  margin-right: 10px;
-`;
-
-const Submit = styled.input`
-  background: green;
-  color: white;
-  border: none;
-`;
-
 class Search extends Component {
   constructor(props){
     super(props);
@@ -45,8 +25,53 @@ class Search extends Component {
   }
 
   render() {
+    const SearchW = styled.form`
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 1rem;
+
+      & > i {
+        color: rgba(100, 65, 164, 1);
+      }
+
+      ${this.props.landing && `
+        display: flex;
+        justify-content: center;
+        font-size: 5rem;
+
+        & > span {
+          flex-basis: 0;
+          flex: 1;
+        }
+
+        & > i {
+          position: absolute;
+          font-size: 0.8em;
+          right: 0.5em;
+          bottom: 0.4em;
+        }
+      `};
+    `;
+
+    const SearchBox = styled(NumericInput)`
+      text-align: center;
+      margin-right: 10px;
+      border-radius: ${this.props.landing ? "10px" : "2px"}
+      z-index: 1;
+    `;
+
+    const Submit = styled.input`
+      background: green;
+      color: white;
+      border: none;
+      flex-basis: 0;
+      flex: 1;
+    `;
+
     return (
-      <SearchWrapper onSubmit={(e) => this.handleSubmit(e)}>
+      <SearchW onSubmit={(e) => this.handleSubmit(e)}>
         <SearchBox 
           style={false} 
           value={this.state.input} 
@@ -54,7 +79,7 @@ class Search extends Component {
           placeholder="What replay, yo?"
         />
         <i onClick={(e) => this.handleSubmit(e)} className="fa fa-search fa-lg" aria-hidden="true"></i>
-      </SearchWrapper>
+      </SearchW>
     );
   }
 }

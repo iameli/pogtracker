@@ -2,8 +2,10 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { jumpToTime, sendVideoRequest }  from './actions/actions';
 import styled from 'styled-components';
-import { BrowserRouter as Router, Route } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom'
 
+import Invalid from './components/Invalid';
+import Landing from './components/Landing';
 import TopBar from './components/TopBar';
 import Loading from './components/Loading';
 import Search from './components/Search';
@@ -25,7 +27,11 @@ class App extends Component {
       <Router>
         <AppW>
           <TopBar channel={this.props.channel ? this.props.channel : undefined}/>
-            <Route path="/replay/:id" component={PogTracker}/>
+            <Switch>
+              <Route exact path="/" component={Landing}/>
+              <Route path="/replay/:id" component={PogTracker}/>
+              <Route component={Invalid} />
+            </Switch>
         </AppW>
       </Router>
     )
