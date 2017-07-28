@@ -45,6 +45,20 @@ const Emote = styled.div`
   }
 `;
 
+const Learn = styled.button`
+  outline: none;
+  background: none;
+  cursor: pointer;
+  border: none;
+  text-decoration: underline;
+  color: rgba(100, 65, 164, 1);
+  margin-top: 4rem;
+
+  &:hover {
+    color: rgba(100, 65, 164, 0.5);
+  }
+`;
+
 
 class Landing extends Component {
   render() {
@@ -57,6 +71,7 @@ class Landing extends Component {
             <Emote />
           </InstructionW>
         </div>
+        <Learn>Learn More</Learn>
       </LandingW>
     );
   }

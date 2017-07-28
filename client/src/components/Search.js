@@ -7,6 +7,7 @@ import NumericInput from 'react-numeric-input';
 import styled from 'styled-components';
 
 const SearchW = styled.div`
+  position: relative;
   display: flex;
   flex-flow: column;
 `;
@@ -97,6 +98,8 @@ const SearchIcon = styled.i`
 
 const CursorW = styled.div`
   position: absolute;
+  top: 0;
+  left: 0;
   display: flex;
   font-size: 5rem;
 
@@ -111,7 +114,8 @@ const CursorW = styled.div`
 `;
 
 const CursorElement = styled.div`
-  bottom: 0;
+  position: relative;
+  bottom: -5px;
   width: 4px;
   height: 1em;
   background-color: rgba(100, 65, 164, 1);
@@ -134,13 +138,13 @@ const CursorElement = styled.div`
 class Search extends Component {
   constructor(props){
     super(props);
-
+    this.handleInputChange = this.handleInputChange.bind(this);
     this.state = {
-      input : "161763204"
+      input : ""
     };
   }
 
-  handleChange(e){
+  handleInputChange(e){
     this.setState({input : e.target.value});
   }
 
@@ -152,11 +156,10 @@ class Search extends Component {
   render() {
     return (
       <SearchW>
-        <SearchBoxW onSubmit={(e) => this.handleSubmit(e)} landing={!!this.props.landing}>
+        <SearchBoxW onSubmit={(e) => this.handleSubmit(e)} landing={!!this.props.landing} onChange={this.handleInputChange}>
             <SearchBox 
               style={false} 
               value={this.state.input} 
-              onKeyUp={(e) => this.handleChange(e)} 
               placeholder="What replay, yo?"
               landing={!!this.props.landing}
             />
