@@ -6,43 +6,12 @@ import NumericInput from 'react-numeric-input';
 
 import styled from 'styled-components';
 
-const SearchBox = styled(NumericInput)`
-  margin-right: 10px;
-  z-index: 1;
-  transition: all 0.25s ease-in-out;
-
-  &:focus {
-    outline: none;
-  }
-
-  ${props => props.landing && `
-    border: none;
-    border-bottom: 2px solid rgba(100, 65, 164, 0.2); 
-    font-family: 'Lato', serif;
-    font-weight: 900;
-    font-style: italic;
-    letter-spacing: 0.5rem;
-
-    &:hover, &:focus {
-      border-bottom: 2px solid rgba(100, 65, 164, 0.8);
-    }
-
-    &:focus {
-      background: linear-gradient(rgba(100, 65, 164, 0) 80%, rgba(100, 65, 164, 0.1));
-    }
-
-    &::placeholder {
-      text-align: center;
-      letter-spacing: 0;
-      font-weight: 400;
-      font-style: italic;
-      padding-bottom: 2rem;
-      font-size: 0.7em;
-    }
-  `}
+const SearchW = styled.div`
+  display: flex;
+  flex-flow: column;
 `;
 
-const SearchW = styled.form`
+const SearchBoxW = styled.form`
   position: relative;
   display: flex;
   justify-content: center;
@@ -64,8 +33,57 @@ const SearchW = styled.form`
       right: 0.5em;
       bottom: 0.4em;
     }
+
+    & > span {
+      flex-basis: 0;
+      flex: 1;
+    }
+
+    & > div {
+      width: 4px;
+      height: 80%;
+    }
   `};
 `;
+
+const SearchBox = styled(NumericInput)`
+  margin-right: 10px;
+  z-index: 1;
+  transition: all 0.25s ease-in-out;
+
+  &:focus {
+    outline: none;
+  }
+
+  ${props => props.landing && `
+    color: transparent;
+    border: none;
+    border-bottom: 2px solid rgba(100, 65, 164, 0.2); 
+    font-family: 'Lato', serif;
+    font-weight: 900;
+    font-style: italic;
+    letter-spacing: 0.5rem;
+
+    &:hover, &:focus {
+      border-bottom: 2px solid rgba(100, 65, 164, 0.8);
+    }
+
+    &:focus {
+      background: linear-gradient(rgba(100, 65, 164, 0) 80%, rgba(100, 65, 164, 0.1));
+    }
+
+    &::placeholder {
+      color: rgba(0, 0, 0, 0.3);
+      text-align: center;
+      letter-spacing: 0;
+      font-weight: 400;
+      font-style: italic;
+      padding-bottom: 2rem;
+      font-size: 0.7em;
+    }
+  `}
+`;
+
 
 const SearchIcon = styled.i`
   cursor: pointer;
@@ -78,44 +96,39 @@ const SearchIcon = styled.i`
 `;
 
 const CursorW = styled.div`
-  position: relative;
+  position: absolute;
+  display: flex;
+  font-size: 5rem;
 
-  ${props => props.landing && `
-    & > span {
-      flex-basis: 0;
-      flex: 1;
-    }
-
-    & > i {
-    position: absolute;
-    left: 0;
-    bottom: 10%;
-    width: 4px;
-    height: 80%;
-    background-color: rgba(100, 65, 164, 1);
-    animation-name: blink;
-    animation-duration: 1500ms;
-    animation-iteration-count: infinite;
-    opacity: 1;
-
-    @keyframes blink {
-      0% { opacity: 1; }
-      25% { opacity: 0; }
-      50% { opacity: 0; }
-      75% { opacity: 1}
-      100% { top: 1;}
-    }
-  `}
+  & > p {
+    margin: 0;
+    padding: 0;
+    font-family: 'Lato', serif;
+    font-weight: 900;
+    font-style: italic;
+    letter-spacing: 0.5rem;
+  }
 `;
 
-const HiddenTextW = styled.p`
-  display: flex;
-  margin: 0;
-  padding: 0;
-  font-family: 'Lato', serif;
-  font-weight: 900;
-  font-style: italic;
-  letter-spacing: 0.5rem;
+const CursorElement = styled.div`
+  bottom: 0;
+  width: 4px;
+  height: 1em;
+  background-color: rgba(100, 65, 164, 1);
+  opacity: 1;
+
+  animation-name: blink;
+  animation-duration: 1500ms;
+  animation-iteration-count: infinite;
+
+  @keyframes blink {
+    0% { opacity: 1; }
+    25% { opacity: 0; }
+    50% { opacity: 0; }
+    75% { opacity: 1}
+    100% { top: 1;}
+  }
+
 `;
 
 class Search extends Component {
@@ -138,19 +151,24 @@ class Search extends Component {
 
   render() {
     return (
-      <SearchW onSubmit={(e) => this.handleSubmit(e)} landing={!!this.props.landing}>
-        <CursorW landing={!!this.props.landing}>
-          <SearchBox 
-            style={false} 
-            value={this.state.input} 
-            onKeyUp={(e) => this.handleChange(e)} 
-            placeholder="What replay, yo?"
-            landing={!!this.props.landing}
-          />
-
-          {this.props.landing && <i></i>}
-        </CursorW>
-        <SearchIcon onClick={(e) => this.handleSubmit(e)} className="fa fa-search fa-lg" aria-hidden="true"></SearchIcon>
+      <SearchW>
+        <SearchBoxW onSubmit={(e) => this.handleSubmit(e)} landing={!!this.props.landing}>
+            <SearchBox 
+              style={false} 
+              value={this.state.input} 
+              onKeyUp={(e) => this.handleChange(e)} 
+              placeholder="What replay, yo?"
+              landing={!!this.props.landing}
+            />
+          <SearchIcon onClick={(e) => this.handleSubmit(e)} className="fa fa-search fa-lg" aria-hidden="true"></SearchIcon>
+        </SearchBoxW>
+        {
+          this.props.landing && 
+          <CursorW>
+            <p>{this.state.input}</p>
+            <CursorElement/>
+          </CursorW>
+        }
       </SearchW>
     );
   }
