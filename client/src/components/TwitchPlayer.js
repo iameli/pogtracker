@@ -82,11 +82,15 @@ class TwitchPlayer extends Component {
       options.width = 768;
       options.height = 432;
 			options.channel = "";
-			options.collection="v3MeJWgPyBTV3g";
+			options.collection="";
 			options.video = "v" + this.props.videoID;
-
 			this.player = new window.Twitch.Player(this.state.id, options);
 		}
+
+		const that = this;
+		this.player.addEventListener(window.Twitch.Player.PLAY, () => {
+			this.updateTime();
+		});
 	}
 
   updateTime() {

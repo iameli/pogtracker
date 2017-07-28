@@ -19,7 +19,7 @@ const PogTrackerW = styled.div`
 class PogTracker extends Component {
 
   componentWillMount(){
-    this.dispatchNewRequest();
+    this.dispatchNewRequest(this.props);
   }
 
   getQueries(){
@@ -34,14 +34,14 @@ class PogTracker extends Component {
     return formattedDispatchQueries;
   }
 
-  dispatchNewRequest(){
+  dispatchNewRequest(currentProps){
     this.props.dispatch(updateActive(this.getQueries()));
-    this.props.dispatch(sendVideoRequest(this.props.match.params.id));
+    this.props.dispatch(sendVideoRequest(currentProps.match.params.id));
   }
 
   componentWillReceiveProps(newProps){
-    if(newProps.match.params.id != this.props.loadedVideoID && this.props.loadedVideoID){
-      window.location.reload();
+    if(newProps.match.params.id != this.props.match.params.id){
+      this.dispatchNewRequest(newProps);
     }
   }
 

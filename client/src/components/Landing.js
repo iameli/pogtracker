@@ -6,6 +6,43 @@ const LandingW = styled.div`
   display: flex;
   flex-flow: column;
   align-items: center;
+  margin-top: 200px;
+`;
+
+const InstructionW = styled.div`
+  display: flex;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 0.8rem;
+  justify-content: flex-end;
+  align-items: center;
+  margin-top: 10px;
+`;
+
+const Instruction = styled.p`
+  margin: 0;
+  padding: 0;
+`;
+
+const ReplayHelper = styled.button`
+  border: none;
+  cursor: pointer;
+  font-style: italic;
+  font-weight: bold;
+  background: rgba(100, 65, 164, 0.2);
+`;
+
+const Emote = styled.div`
+  background-image: url("https://static-cdn.jtvnw.net/emoticons/v1/41/1.0");
+  background-repeat: no-repeat;
+  background-position: center;
+  margin: 0 10px 0 0;
+  padding-bottom: 5px;
+  width: 30px;
+  height: 30px;
+
+  &:hover{
+    background-image: url("https://static-cdn.jtvnw.net/emoticons/v1/25/1.0");
+  }
 `;
 
 
@@ -13,9 +50,13 @@ class Landing extends Component {
   render() {
     return (
       <LandingW>
-        <h1>I do what now?</h1>
-        <Search landing/>
-        <p>Some extra info here, yes?</p>
+        <div>
+          <Search landing />
+          <InstructionW>
+            <Instruction>Find a <ReplayHelper>replay ID</ReplayHelper>, drop it in and we'll generate some fun highlights for you</Instruction>
+            <Emote />
+          </InstructionW>
+        </div>
       </LandingW>
     );
   }
