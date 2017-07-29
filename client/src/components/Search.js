@@ -17,7 +17,13 @@ const SearchBoxW = styled.form`
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 1rem;
+  font-size: 2rem;
+
+  & > span {
+    width: 0;
+    opacity: 0;
+    background: white;
+  }
 
   & > i {
     color: rgba(100, 65, 164, 1);
@@ -36,6 +42,8 @@ const SearchBoxW = styled.form`
     }
 
     & > span {
+      width: 100%;
+      opacity: 1;
       flex-basis: 0;
       flex: 1;
     }
@@ -134,7 +142,6 @@ const CursorElement = styled.div`
     75% { opacity: 1}
     100% { top: 1;}
   }
-
 `;
 
 class Search extends Component {
@@ -147,7 +154,11 @@ class Search extends Component {
   }
 
   handleInputChange(e){
-    this.setState({input : e.target.value});
+    console.log(typeof Number(e.target.value) === "number")
+    if(typeof Number(e.target.value) === "number"){
+      console.log("hola")
+      this.setState({input : e.target.value});
+    }
   }
 
   handleSubmit(e){
@@ -156,6 +167,7 @@ class Search extends Component {
   }
 
   render() {
+    console.log(this.state.input)
     return (
       <SearchW>
         <SearchBoxW onSubmit={(e) => this.handleSubmit(e)} landing={!!this.props.landing} onChange={this.handleInputChange}>
