@@ -6,7 +6,7 @@ const LandingW = styled.div`
   display: flex;
   flex-flow: column;
   align-items: center;
-  margin-top: 200px;
+  margin-top: ${props => props.modal ? 0 : "200px"};
   color: ${props => props.modal ? "white" : "black"};
 `;
 
@@ -29,6 +29,7 @@ const ReplayHelper = styled.button`
   cursor: pointer;
   font-style: italic;
   font-weight: bold;
+  color: ${props => props.modal ? "white" : "black"};
   background: rgba(100, 65, 164, 0.2);
 `;
 
@@ -68,11 +69,11 @@ class Landing extends Component {
         <div>
           <Search modal={!!this.props.modal}/>
           <InstructionW>
-            <Instruction>Find a <ReplayHelper>replay ID</ReplayHelper>, drop it in and we'll generate some fun highlights for you</Instruction>
+            <Instruction>Find a <ReplayHelper modal={!!this.props.modal}>replay ID</ReplayHelper>, drop it in and we'll generate some fun highlights for you</Instruction>
             <Emote />
           </InstructionW>
         </div>
-        <Learn>Learn More</Learn>
+        {!this.props.modal && <Learn>Learn More</Learn>}
       </LandingW>
     );
   }

@@ -8,11 +8,14 @@ const modalStyle = {
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    background: 'rgba(0, 0, 0, 0.95)'
+    background: 'rgba(0, 0, 0, 0.97)'
   },
   content : {
+    position: 'static',
     margin: 'auto',
     width: '70%',
+    padding: 0,
+    margin: 0,
     background: 'transparent',
     border: `none`
   }
