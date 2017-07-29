@@ -7,6 +7,7 @@ const LandingW = styled.div`
   flex-flow: column;
   align-items: center;
   margin-top: 200px;
+  color: ${props => props.modal ? "white" : "black"};
 `;
 
 const InstructionW = styled.div`
@@ -63,9 +64,9 @@ const Learn = styled.button`
 class Landing extends Component {
   render() {
     return (
-      <LandingW>
+      <LandingW modal={!!this.props.modal}>
         <div>
-          <Search landing />
+          <Search modal={!!this.props.modal}/>
           <InstructionW>
             <Instruction>Find a <ReplayHelper>replay ID</ReplayHelper>, drop it in and we'll generate some fun highlights for you</Instruction>
             <Emote />

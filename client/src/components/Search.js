@@ -85,6 +85,7 @@ const SearchIcon = styled.i`
 
 const CursorW = styled.div`
   position: absolute;
+  color: ${props => props.modal ? "white" : "black"};
   top: 0;
   left: 0;
   display: flex;
@@ -122,7 +123,7 @@ class Search extends Component {
     super(props);
     this.handleInputChange = this.handleInputChange.bind(this);
     this.state = {
-      input : ""
+      input : "151862084"
     };
   }
 
@@ -148,12 +149,12 @@ class Search extends Component {
               style={false} 
               value={this.state.input} 
               placeholder="What replay, yo?"
-              maxLength="10"
+              maxLength={10}
               autoFocus
             />
           <SearchIcon onClick={(e) => this.handleSubmit(e)} className="fa fa-search fa-lg" aria-hidden="true"></SearchIcon>
         </SearchBoxW>
-        <CursorW>
+        <CursorW modal={!!this.props.modal}>
           <p>{this.state.input}</p>
           <CursorElement/>
         </CursorW>
