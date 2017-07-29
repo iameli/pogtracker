@@ -10,6 +10,11 @@ const SearchW = styled.div`
   position: relative;
   display: flex;
   flex-flow: column;
+  font-size: 5rem;
+  font-family: 'Lato', serif;
+  font-weight: 900;
+  font-style: italic;
+  letter-spacing: 0.5rem;
 `;
 
 const SearchBoxW = styled.form`
@@ -17,7 +22,6 @@ const SearchBoxW = styled.form`
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 5rem;
 
   & > span {
     width: 100%;
@@ -33,20 +37,13 @@ const SearchBoxW = styled.form`
     right: 0.5em;
     bottom: 0.4em;
   }
-
-  & > div {
-    width: 4px;
-    height: 80%;
-  }
 `;
 
 const SearchBox = styled(NumericInput)`
-  margin-right: 10px;
   background: transparent;
   color: transparent;
   border: none;
   border-bottom: 2px solid rgba(100, 65, 164, 0.2); 
-  z-index: 1;
   transition: all 0.25s ease-in-out;
   font-family: 'Lato', serif;
   font-weight: 900;
@@ -69,8 +66,7 @@ const SearchBox = styled(NumericInput)`
     color: rgba(0, 0, 0, 0.3);
     text-align: center;
     letter-spacing: 0;
-    font-weight: 400;
-    font-style: italic;
+    font-weight: 400; 
     padding-bottom: 2rem;
     font-size: 0.7em;
   }
@@ -92,15 +88,10 @@ const CursorW = styled.div`
   top: 0;
   left: 0;
   display: flex;
-  font-size: 5rem;
 
   & > p {
     margin: 0;
     padding: 0;
-    font-family: 'Lato', serif;
-    font-weight: 900;
-    font-style: italic;
-    letter-spacing: 0.5rem;
     user-select: none;
   }
 `;
