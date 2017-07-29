@@ -164,6 +164,8 @@ class Search extends Component {
               value={this.state.input} 
               placeholder="What replay, yo?"
               landing={!!this.props.landing}
+              maxLength="10"
+              autoFocus
             />
           <SearchIcon onClick={(e) => this.handleSubmit(e)} className="fa fa-search fa-lg" aria-hidden="true"></SearchIcon>
         </SearchBoxW>

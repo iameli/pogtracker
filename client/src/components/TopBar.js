@@ -11,8 +11,8 @@ const BarW = styled.div`
   margin: 0 -50vw;
   left: 50%;
   right: 50%;
-  background: linear-gradient(to left, rgba(92,37,141,0.15), rgba(67,137,162, 0.15));
-  border-bottom: 1px solid silver;
+  background: linear-gradient(to left, rgba(92,37,141,0.1), rgba(67,137,162, 0.1));
+  border-bottom: 1px solid rgba(100, 65, 164, 0.3);
 `;
 
 const LogoW = styled.div`
