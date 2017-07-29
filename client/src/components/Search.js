@@ -17,81 +17,63 @@ const SearchBoxW = styled.form`
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 2rem;
+  font-size: 5rem;
 
   & > span {
-    width: 0;
-    opacity: 0;
-    background: white;
+    width: 100%;
+    opacity: 1;
+    flex-basis: 0;
+    flex: 1;
   }
 
   & > i {
     color: rgba(100, 65, 164, 1);
+    position: absolute;
+    font-size: 0.8em;
+    right: 0.5em;
+    bottom: 0.4em;
   }
 
-  ${props => props.landing && `
-    display: flex;
-    justify-content: center;
-    font-size: 5rem;
-
-    & > i {
-      position: absolute;
-      font-size: 0.8em;
-      right: 0.5em;
-      bottom: 0.4em;
-    }
-
-    & > span {
-      width: 100%;
-      opacity: 1;
-      flex-basis: 0;
-      flex: 1;
-    }
-
-    & > div {
-      width: 4px;
-      height: 80%;
-    }
-  `};
+  & > div {
+    width: 4px;
+    height: 80%;
+  }
 `;
 
 const SearchBox = styled(NumericInput)`
   margin-right: 10px;
   background: transparent;
+  color: transparent;
+  border: none;
+  border-bottom: 2px solid rgba(100, 65, 164, 0.2); 
   z-index: 1;
   transition: all 0.25s ease-in-out;
+  font-family: 'Lato', serif;
+  font-weight: 900;
+  font-style: italic;
+  letter-spacing: 0.5rem;
 
   &:focus {
     outline: none;
   }
 
-  ${props => props.landing && `
-    color: transparent;
-    border: none;
-    border-bottom: 2px solid rgba(100, 65, 164, 0.2); 
-    font-family: 'Lato', serif;
-    font-weight: 900;
+  &:hover, &:focus {
+    border-bottom: 2px solid rgba(100, 65, 164, 0.8);
+  }
+
+  &:focus {
+    background: linear-gradient(rgba(100, 65, 164, 0) 80%, rgba(100, 65, 164, 0.1));
+  }
+
+  &::placeholder {
+    color: rgba(0, 0, 0, 0.3);
+    text-align: center;
+    letter-spacing: 0;
+    font-weight: 400;
     font-style: italic;
-    letter-spacing: 0.5rem;
-
-    &:hover, &:focus {
-      border-bottom: 2px solid rgba(100, 65, 164, 0.8);
-    }
-
-    &:focus {
-      background: linear-gradient(rgba(100, 65, 164, 0) 80%, rgba(100, 65, 164, 0.1));
-    }
-
-    &::placeholder {
-      color: rgba(0, 0, 0, 0.3);
-      text-align: center;
-      letter-spacing: 0;
-      font-weight: 400;
-      font-style: italic;
-      padding-bottom: 2rem;
-      font-size: 0.7em;
-    }
-  `}
+    padding-bottom: 2rem;
+    font-size: 0.7em;
+  }
 `;
 
 
@@ -170,24 +152,20 @@ class Search extends Component {
     console.log(this.state.input)
     return (
       <SearchW>
-        <SearchBoxW onSubmit={(e) => this.handleSubmit(e)} landing={!!this.props.landing} onChange={this.handleInputChange}>
+        <SearchBoxW onSubmit={(e) => this.handleSubmit(e)} onChange={this.handleInputChange}>
             <SearchBox 
               style={false} 
               value={this.state.input} 
               placeholder="What replay, yo?"
-              landing={!!this.props.landing}
               maxLength="10"
               autoFocus
             />
           <SearchIcon onClick={(e) => this.handleSubmit(e)} className="fa fa-search fa-lg" aria-hidden="true"></SearchIcon>
         </SearchBoxW>
-        {
-          this.props.landing && 
-          <CursorW>
-            <p>{this.state.input}</p>
-            <CursorElement/>
-          </CursorW>
-        }
+        <CursorW>
+          <p>{this.state.input}</p>
+          <CursorElement/>
+        </CursorW>
       </SearchW>
     );
   }
