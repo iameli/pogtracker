@@ -49,6 +49,7 @@ const SearchBoxW = styled.form`
 
 const SearchBox = styled(NumericInput)`
   margin-right: 10px;
+  background: transparent;
   z-index: 1;
   transition: all 0.25s ease-in-out;
 
@@ -110,6 +111,7 @@ const CursorW = styled.div`
     font-weight: 900;
     font-style: italic;
     letter-spacing: 0.5rem;
+    user-select: none;
   }
 `;
 

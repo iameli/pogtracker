@@ -1,5 +1,9 @@
-body {
+body, html {
   margin: 0;
   padding: 0;
   font-family: sans-serif;
 }
+
+/*html {
+  background: linear-gradient(to left, rgba(92,37,141,0.15), rgba(67,137,162, 0.15));
+}*/
