@@ -16,7 +16,7 @@
   "bugs": {
     "url": "https://github.com/dustwise/pogtracker/issues"
   },
-  "homepage": "https://github.com/dustwise/pogtracker#readme",
+  "homepage": "pogtracker.com",
   "dependencies": {
     "body-parser": "^1.17.2",
     "express": "^4.15.3",
