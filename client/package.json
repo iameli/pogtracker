@@ -14,7 +14,8 @@
     "redux": "^3.7.2",
     "redux-thunk": "^2.2.0",
     "styled-components": "^2.1.1",
-    "twitch-embed": "^1.1.4"
+    "twitch-embed": "^1.1.4",
+    "react-scripts": "1.0.10"
   },
   "devDependencies": {
     "react-scripts": "1.0.10"
