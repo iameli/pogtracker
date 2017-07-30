@@ -5,13 +5,14 @@ export const UPDATE_ACTIVE = 'UPDATE_ACTIVE';
 
 export const sendVideoRequest = (videoID) => (dispatch) => {
   dispatch(requestSent());
-  return fetch(`http://localhost:8080/api/replay/${videoID}`)
+  return fetch(`/api/replay/${videoID}`)
   .then(res => res.json())
   .then(data => {
     dispatch(requestCompleted(data));
   })
   .catch(e => {
-    console.log(e)
+    console.log("error, yo")
+    console.log(JSON.stringify(e));
   });
 }
 

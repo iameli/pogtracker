@@ -4,6 +4,7 @@ import bodyParser from 'body-parser';
 import router from './routes/api';
 import mongoose from 'mongoose';
 import Replay from './models/replay';
+require('dotenv').config();
 
 mongoose.connect(process.env.DATABASE,{
   useMongoClient : true
@@ -18,16 +19,18 @@ app.use(bodyParser.json());
 app.use(express.static(path.resolve(__dirname, '../client/build')));
 
 app.use((req, res, next) => {
+  console.log("biiiiiiitch")
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   next();
 });
 
-app.get(/^(?!\/api(\/|$))/, (req, res) => {
-    const index = path.resolve(__dirname, '../client/build', 'index.html');
-    res.sendFile(index);
-});
+// app.get(/^(?!\/api(\/|$))/, (req, res) => {
+//     console.log("why am I in here")
+//     const index = path.resolve(__dirname, '../client/build', 'index.html');
+//     res.sendFile(index);
+// });
 
 app.use('/', router);
 

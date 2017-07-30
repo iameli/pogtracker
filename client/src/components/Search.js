@@ -140,7 +140,6 @@ class Search extends Component {
   }
 
   render() {
-    console.log(this.state.input)
     return (
       <SearchW>
         <SearchBoxW onSubmit={(e) => this.handleSubmit(e)} onChange={this.handleInputChange}>
