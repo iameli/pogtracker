@@ -6,9 +6,10 @@
   "scripts": {
     "start": "node index.js",
     "heroku-postbuild": "cd client && npm run build",
-    "dev": "run-p start:proxy start:server start:client",
-    "dev:proxy": "babel-watch -w index.js",
-    "dev:server": "babel-watch -w server/server.js"
+    "dev": "run-p dev:proxy dev:server dev:client",
+    "dev:proxy": "babel-watch index.js",
+    "dev:server": "cd server && react-scripts start",
+    "dev:client": "cd client && react-scripts start"
   },
   "cacheDirectories": [
     "node_modules",
@@ -30,5 +31,8 @@
     "http-proxy-middleware": "^0.17.4",
     "npm-run-all": "^4.0.2"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "babel-watch": "^2.0.7",
+    "react-scripts": "^1.0.10"
+  }
 }
