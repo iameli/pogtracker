@@ -32,7 +32,7 @@ app.use((req, res, next) => {
 //     res.sendFile(index);
 // });
 
-app.use('/', router);
+app.use('/api', router);
 
 function runServer(port=8080) {
   return new Promise((resolve, reject) => {
