@@ -16,7 +16,7 @@ if (process.env.NODE_ENV === 'production') {
     logLevel: 'warn',
     ws: true,
     router: {
-      'localhost:4000/api': 'http://localhost:8080'
+      '/api': 'http://localhost:8080'
     }
   }));
 
