@@ -128,9 +128,8 @@ class Search extends Component {
   }
 
   handleInputChange(e){
-    console.log(typeof Number(e.target.value) === "number")
-    if(typeof Number(e.target.value) === "number"){
-      console.log("hola")
+
+    if (`${parseInt(e.target.value)}` === e.target.value || e.target.value === "") {
       this.setState({input : e.target.value});
     }
   }
