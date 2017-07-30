@@ -3,7 +3,7 @@ import proxy from 'http-proxy-middleware';
 
 const app = express();
 
-if(process.env.NODE_ENV === 'production'){
+if (process.env.NODE_ENV === 'production') {
   console.log("ok what")
   const runServer = require('./server').runServer;
 
