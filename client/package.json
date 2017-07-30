@@ -20,6 +20,7 @@
     "react-scripts": "1.0.10"
   },
   "scripts": {
+    "dokku-build": "cd ../client && npm install --only=dev && npm run build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
