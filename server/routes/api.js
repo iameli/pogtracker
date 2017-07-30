@@ -12,7 +12,7 @@ router.use((req, res, next) => {
 });
 
 //callback hell you shitheel
-router.get('/api/replay/:replay_id',(req, res) => {
+router.get('/replay/:replay_id',(req, res) => {
 
   console.log("why am I not getting to here?")
   Replay.findOne({ videoID: req.params.replay_id }, (err, replay) => {
