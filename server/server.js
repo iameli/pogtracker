@@ -1,3 +1,4 @@
+import path from 'path';
 import express from 'express';
 import bodyParser from 'body-parser';
 import router from './routes/api';
@@ -10,6 +11,7 @@ mongoose.connect(process.env.DATABASE,{
 
 const app = express();
 const port = 8080;
+let server;
 
 app.use(bodyParser.json());
 
@@ -22,9 +24,37 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use('/api', router);
-
-app.listen(port, () => {
-  console.log('Running on port: ' + 8080);
+app.get(/^(?!\/api(\/|$))/, (req, res) => {
+    const index = path.resolve(__dirname, '../client/build', 'index.html');
+    res.sendFile(index);
 });
+
+app.use('/', router);
+
+function runServer(port=8080) {
+  return new Promise((resolve, reject) => {
+    server = app.listen(port, () => {
+      resolve();
+    }).on('error', reject);
+  });
+}
+
+function closeServer() {
+  return new Promise((resolve, reject) => {
+    server.close(err => {
+      if (err) {
+        return reject(err);
+      }
+      resolve();
+    });
+  });
+}
+
+if(require.main === module){
+  runServer();
+}
+
+module.exports = {
+    app, runServer, closeServer
+};
 
